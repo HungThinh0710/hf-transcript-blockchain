@@ -1,51 +1,49 @@
-Initial network
+## Initial network
 
 ```bash
-minifab netup  -o it.vku.udn.vn -i 2.2 -l node -s couchdb
-minifab netup -l node -s couchdb
+minifab netup -o it.vku.udn.vn -i 2.2 -l node -s couchdb -e true
 ```
 
-Create channel
+## Create channel
 
 ```bash
 minifab create,join -c vku
 minifab channelquery
--> edit max 50/timeout -> 20s
-minifab channelsign
-minifab channelupdate
+
+-> edit file `vars/Vku_config.json`
+-> "max_message_count": 50
+-> "timeout": "20s"
+
+minifab channelsign,channelupdate
 ```
 
-Update Anchor & Profile generate
+## Update Anchor & Profile generate
 
 ```bash
-minifab anchorupdate
-minifab profilegen
+minifab anchorupdate,profilegen
 ```
 
-Install chaincode
+## Install & Update chaincode
+
+### Install new chaincode
 
 ```bash
-minifab ccup -n simple -l node -v 1.0 -d false -p ''
+minifab ccup -n transcript -l node -v 1.0 -d true -p '"initLedger"'
 ```
 
-Update chaincode
+### Upgrade chaincode with 1 command
 
 ```bash
-minifab ccup -n simple -l node -v 1.1 -d false -p ''
+minifab ccup -n transcript -v 1.1 -l node
 ```
 
-
+### Manual Upgrade chaincode
 
 ```bash
-minifab install -n simple -v 1.1 -l node -d false -p ''
+minifab install -n transcript -v 1.1 -l node
 minifab approve
-minifab commit -d false -p ''
+minifab commit
+minifab initialize
 minifab discover
-minifab invoke -d false -p '' # Do not need
+minifab channelquery
 ```
-
-
-```bash
-verify options, download images, generate certificates, start network, network status, channel create, channel join, anchor update, profile generation, cc install, cc approve, cc commit, cc initialize, discover
-```
-
