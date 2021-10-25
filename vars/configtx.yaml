@@ -1,65 +1,65 @@
 ---
 Organizations:
-  - &example-com
-      Name: example-com
-      ID: example-com
-      MSPDir: keyfiles/ordererOrganizations/example.com/msp
+  - &ba-vku-udn-vn
+      Name: ba-vku-udn-vn
+      ID: ba-vku-udn-vn
+      MSPDir: keyfiles/peerOrganizations/ba.vku.udn.vn/msp
       Policies:
         Readers:
           Type: Signature
-          Rule: "OR('example-com.member')"
+          Rule: "OR('ba-vku-udn-vn.admin', 'ba-vku-udn-vn.peer', 'ba-vku-udn-vn.client')"
         Writers:
           Type: Signature
-          Rule: "OR('example-com.member')"
+          Rule: "OR('ba-vku-udn-vn.admin', 'ba-vku-udn-vn.client')"
         Admins:
           Type: Signature
-          Rule: "OR('example-com.admin')"
-  - &org0-example-com
-      Name: org0-example-com
-      ID: org0-example-com
-      MSPDir: keyfiles/peerOrganizations/org0.example.com/msp
-      Policies:
-        Readers:
-          Type: Signature
-          Rule: "OR('org0-example-com.admin', 'org0-example-com.peer', 'org0-example-com.client')"
-        Writers:
-          Type: Signature
-          Rule: "OR('org0-example-com.admin', 'org0-example-com.client')"
-        Admins:
-          Type: Signature
-          Rule: "OR('org0-example-com.admin')"
+          Rule: "OR('ba-vku-udn-vn.admin')"
         Endorsement:
           Type: Signature
-          Rule: "OR('org0-example-com.peer')"
+          Rule: "OR('ba-vku-udn-vn.peer')"
 
       AnchorPeers:
-      - Host: peer1.org0.example.com
-        Port: 7051
-      - Host: peer2.org0.example.com
-        Port: 7051
-  - &org1-example-com
-      Name: org1-example-com
-      ID: org1-example-com
-      MSPDir: keyfiles/peerOrganizations/org1.example.com/msp
+      - Host: 172.30.127.73
+        Port: 7004
+      - Host: 172.30.127.73
+        Port: 7005
+  - &it-vku-udn-vn
+      Name: it-vku-udn-vn
+      ID: it-vku-udn-vn
+      MSPDir: keyfiles/peerOrganizations/it.vku.udn.vn/msp
       Policies:
         Readers:
           Type: Signature
-          Rule: "OR('org1-example-com.admin', 'org1-example-com.peer', 'org1-example-com.client')"
+          Rule: "OR('it-vku-udn-vn.admin', 'it-vku-udn-vn.peer', 'it-vku-udn-vn.client')"
         Writers:
           Type: Signature
-          Rule: "OR('org1-example-com.admin', 'org1-example-com.client')"
+          Rule: "OR('it-vku-udn-vn.admin', 'it-vku-udn-vn.client')"
         Admins:
           Type: Signature
-          Rule: "OR('org1-example-com.admin')"
+          Rule: "OR('it-vku-udn-vn.admin')"
         Endorsement:
           Type: Signature
-          Rule: "OR('org1-example-com.peer')"
+          Rule: "OR('it-vku-udn-vn.peer')"
 
       AnchorPeers:
-      - Host: peer1.org1.example.com
-        Port: 7051
-      - Host: peer2.org1.example.com
-        Port: 7051
+      - Host: 172.30.127.73
+        Port: 7002
+      - Host: 172.30.127.73
+        Port: 7003
+  - &vku-udn-vn
+      Name: vku-udn-vn
+      ID: vku-udn-vn
+      MSPDir: keyfiles/ordererOrganizations/vku.udn.vn/msp
+      Policies:
+        Readers:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.member')"
+        Writers:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.member')"
+        Admins:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.admin')"
 
 Capabilities:
   Channel: &ChannelCapabilities
@@ -104,23 +104,23 @@ Orderer: &OrdererDefaults
     PreferredMaxBytes: 512 KB
 
   Addresses:
-  - orderer1.example.com:7050
-  - orderer2.example.com:7050
-  - orderer3.example.com:7050
+  - 172.30.127.73:7010
+  - 172.30.127.73:7011
+  - 172.30.127.73:7012
   EtcdRaft:
     Consenters:
-    - Host: orderer1.example.com
-      Port: 7050
-      ClientTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
-      ServerTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer1.example.com/tls/server.crt
-    - Host: orderer2.example.com
-      Port: 7050
-      ClientTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-      ServerTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/server.crt
-    - Host: orderer3.example.com
-      Port: 7050
-      ClientTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
-      ServerTLSCert: keyfiles/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/server.crt
+    - Host: 172.30.127.73
+      Port: 7010
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
+    - Host: 172.30.127.73
+      Port: 7011
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
+    - Host: 172.30.127.73
+      Port: 7012
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt
   Organizations:
   Policies:
     Readers:
@@ -158,8 +158,8 @@ Profiles:
     Application:
       <<: *ApplicationDefaults
       Organizations:
-      - *org0-example-com
-      - *org1-example-com
+      - *ba-vku-udn-vn
+      - *it-vku-udn-vn
       Capabilities:
         <<: *ApplicationCapabilities
 
@@ -170,15 +170,15 @@ Profiles:
     Orderer:
       <<: *OrdererDefaults
       Organizations:
-      - *example-com
+      - *vku-udn-vn
       Capabilities:
         <<: *OrdererCapabilities
     Application:
       <<: *ApplicationDefaults
       Organizations:
-      - <<: *example-com
+      - <<: *vku-udn-vn
     Consortiums:
       SampleConsortium:
         Organizations:
-        - *org0-example-com
-        - *org1-example-com
+        - *ba-vku-udn-vn
+        - *it-vku-udn-vn

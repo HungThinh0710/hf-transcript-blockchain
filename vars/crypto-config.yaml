@@ -1,52 +1,52 @@
 ---
 OrdererOrgs:
-  - Name: example.com
-    Domain: example.com
+  - Name: vku.udn.vn
+    Domain: vku.udn.vn
     Specs:
       - Hostname: orderer1
         SANS:
-          - orderer1.example.com
+          - 172.30.127.73
       - Hostname: orderer2
         SANS:
-          - orderer2.example.com
+          - 172.30.127.73
       - Hostname: orderer3
         SANS:
-          - orderer3.example.com
+          - 172.30.127.73
 
 PeerOrgs:
-  - Name: org0.example.com
-    Domain: org0.example.com
+  - Name: ba.vku.udn.vn
+    Domain: ba.vku.udn.vn
     EnableNodeOUs: true
     CA:
       Hostname: ca1
-      CommonName: ca1.org0.example.com
+      CommonName: ca1.ba.vku.udn.vn
       Country: US
       Province: North Carolina
       Locality: Raleigh
     Specs:
       - Hostname: peer1
-        CommonName: peer1.org0.example.com
+        CommonName: peer1.ba.vku.udn.vn
         SANS:
-          - peer1.org0.example.com
+          - 172.30.127.73
       - Hostname: peer2
-        CommonName: peer2.org0.example.com
+        CommonName: peer2.ba.vku.udn.vn
         SANS:
-          - peer2.org0.example.com
-  - Name: org1.example.com
-    Domain: org1.example.com
+          - 172.30.127.73
+  - Name: it.vku.udn.vn
+    Domain: it.vku.udn.vn
     EnableNodeOUs: true
     CA:
       Hostname: ca1
-      CommonName: ca1.org1.example.com
+      CommonName: ca1.it.vku.udn.vn
       Country: US
       Province: North Carolina
       Locality: Raleigh
     Specs:
       - Hostname: peer1
-        CommonName: peer1.org1.example.com
+        CommonName: peer1.it.vku.udn.vn
         SANS:
-          - peer1.org1.example.com
+          - 172.30.127.73
       - Hostname: peer2
-        CommonName: peer2.org1.example.com
+        CommonName: peer2.it.vku.udn.vn
         SANS:
-          - peer2.org1.example.com
+          - 172.30.127.73

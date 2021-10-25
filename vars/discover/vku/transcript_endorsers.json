@@ -1,0 +1,33 @@
+{
+  "Chaincode": "transcript",
+  "EndorsersByGroups": {
+    "G0": [
+      {
+        "MSPID": "ba-vku-udn-vn",
+        "Endpoint": "172.30.127.73:7004"
+      },
+      {
+        "MSPID": "ba-vku-udn-vn",
+        "Endpoint": "172.30.127.73:7005"
+      }
+    ],
+    "G1": [
+      {
+        "MSPID": "it-vku-udn-vn",
+        "Endpoint": "172.30.127.73:7003"
+      },
+      {
+        "MSPID": "it-vku-udn-vn",
+        "Endpoint": "172.30.127.73:7002"
+      }
+    ]
+  },
+  "Layouts": [
+    {
+      "quantities_by_group": {
+        "G0": 1,
+        "G1": 1
+      }
+    }
+  ]
+}

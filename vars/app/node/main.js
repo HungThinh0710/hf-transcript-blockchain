@@ -15,7 +15,7 @@ async function main() {
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
-        const walletPath = path.join('/vars/profiles/vscode/wallets', 'org0.example.com');
+        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
@@ -30,14 +30,47 @@ async function main() {
         await gateway.connect(ccp, { wallet, identity: 'Admin', discovery: { enabled: true, asLocalhost: false } });
 
         // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('mychannel');
+        const network = await gateway.getNetwork('vku');
 
         // Get the contract from the network.
-        const contract = network.getContract('samplecc');
+        const contract = network.getContract('transcript');
 
         // Submit the specified transaction.
-        const randomId = Math.floor(Math.random()*500000);
-        await contract.submitTransaction('invoke', 'put', `abc_${randomId}`, `def_${randomId}`);
+        let transcripts = [{
+            semester: 1,
+            semesterText: 'Học kỳ 1 - 2017-2018',
+            year: 2017,
+            universityCode: "VKU",
+            subjects: [
+                {
+                    sbjName: 'Lập trình hướng đối tượng và Java Cơ Bản',
+                    sbjCode: 'JAVA_17_1',
+                    credit: 3,
+                    attendanceScore: 7.0,
+                    exerciseScore: 2.5,
+                    middleExamScore: 5.1,
+                    FinalExamSCore: 4.0
+                },
+                {
+                    sbjName: 'Đại số ',
+                    sbjCode: 'DAISO_17_1',
+                    credit: 3,
+                    attendanceScore: 2.0,
+                    exerciseScore: NaN,
+                    middleExamScore: 9.9,
+                    FinalExamSCore: 6.5
+                },
+            ]
+        }];
+        let student = 
+            {
+                studentID: '17IT205',
+                studentName: 'lee sin',
+                docType: 'example_variablex_v1.1',
+                transcripts
+            };
+
+        await contract.submitTransaction('addNewStudentTranscripts', '17IT205', JSON.stringify(student));
         console.log('Transaction has been submitted');
 
         // Disconnect from the gateway.

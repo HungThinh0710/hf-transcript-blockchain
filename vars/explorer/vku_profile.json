@@ -1,0 +1,191 @@
+{
+  "name": "VKUNetwork",
+  "x-type": "hlfv1",
+  "version": "1.0.0",
+  "client": {
+    "tlsEnable": true,
+    "adminCredential": {
+      "id": "exploreradmin",
+      "password": "exploreradminpw"
+    },
+    "enableAuthentication": true,
+    "organization": "it.vku.udn.vn"
+  },
+  "channels": {
+    "vku": {
+      "orderers": [
+        "orderer1.vku.udn.vn",
+        "orderer2.vku.udn.vn",
+        "orderer3.vku.udn.vn"
+      ],
+      "peers": [
+        "peer1.it.vku.udn.vn",
+        "peer2.it.vku.udn.vn",
+        "peer1.ba.vku.udn.vn",
+        "peer2.ba.vku.udn.vn"
+      ]
+    }
+  },
+  "organizations": {
+    "ba.vku.udn.vn": {
+      "mspid": "ba-vku-udn-vn",
+      "adminPrivateKey": {
+        "path": "/keyfiles/peerOrganizations/ba.vku.udn.vn/users/Admin@ba.vku.udn.vn/msp/keystore/priv_sk"
+      },
+      "signedCert": {
+        "path": "/keyfiles/peerOrganizations/ba.vku.udn.vn/users/Admin@ba.vku.udn.vn/msp/signcerts/Admin@ba.vku.udn.vn-cert.pem"
+      },
+      "peers": [
+        "peer1.ba.vku.udn.vn",
+        "peer2.ba.vku.udn.vn"
+      ],
+      "orderers": [
+      ],
+      "certificateAuthorities": [
+        "ca1.ba.vku.udn.vn"
+      ]
+    },
+    "it.vku.udn.vn": {
+      "mspid": "it-vku-udn-vn",
+      "adminPrivateKey": {
+        "path": "/keyfiles/peerOrganizations/it.vku.udn.vn/users/Admin@it.vku.udn.vn/msp/keystore/priv_sk"
+      },
+      "signedCert": {
+        "path": "/keyfiles/peerOrganizations/it.vku.udn.vn/users/Admin@it.vku.udn.vn/msp/signcerts/Admin@it.vku.udn.vn-cert.pem"
+      },
+      "peers": [
+        "peer1.it.vku.udn.vn",
+        "peer2.it.vku.udn.vn"
+      ],
+      "orderers": [
+      ],
+      "certificateAuthorities": [
+        "ca1.it.vku.udn.vn"
+      ]
+    },
+    "vku.udn.vn": {
+      "mspid": "vku-udn-vn",
+      "adminPrivateKey": {
+        "path": "/keyfiles/ordererOrganizations/vku.udn.vn/users/Admin@vku.udn.vn/msp/keystore/priv_sk"
+      },
+      "signedCert": {
+        "path": "/keyfiles/ordererOrganizations/vku.udn.vn/users/Admin@vku.udn.vn/msp/signcerts/Admin@vku.udn.vn-cert.pem"
+      },
+      "peers": [
+      ],
+      "orderers": [
+        "orderer1.vku.udn.vn",
+        "orderer2.vku.udn.vn",
+        "orderer3.vku.udn.vn"
+      ]
+    }
+  },
+  "orderers": {
+    "orderer1.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7010",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer1.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICnDCCAkKgAwIBAgIUT32OhD1Ly6DT7BAY2C1fWN6DXV8wCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52\na3UudWRuLnZuMB4XDTIxMTAyNTEwNDk1M1oXDTMxMTAyMzEwNDk1M1owaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQHDAdSYWxl\naWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52a3UudWRu\nLnZuMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErW7+CJjBFgBZBGUSjOkbnJMF\n4of7d0lDSG8HKGpiTmQR0pAMxwP5P9m+CDcMbRxxDaMLp0g88ryAF4hS6Uz6aKOB\nyTCBxjAdBgNVHQ4EFgQUzLDihA7Eg0aLEZw0n74SLMu5dWUwHwYDVR0jBBgwFoAU\nzLDihA7Eg0aLEZw0n74SLMu5dWUwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E\nBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMEQGA1UdEQQ9MDuH\nBKwef0mCEHRsc2NhLnZrdS51ZG4udm6CEHRsc2NhLXZrdS11ZG4tdm6CCWxvY2Fs\naG9zdIcEfwAAATAKBggqhkjOPQQDAgNIADBFAiEAqcP7aRP0gtr9avVwXpI0O5YA\nSUo5fOZAP++cB6ctt5QCICybYYxkQQOpYBqhHRW2vU3Yb64LMbp7BhLC9dcdI+Oc\n-----END CERTIFICATE-----"
+      }
+    },
+    "orderer2.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7011",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer2.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICnDCCAkKgAwIBAgIUT32OhD1Ly6DT7BAY2C1fWN6DXV8wCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52\na3UudWRuLnZuMB4XDTIxMTAyNTEwNDk1M1oXDTMxMTAyMzEwNDk1M1owaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQHDAdSYWxl\naWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52a3UudWRu\nLnZuMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErW7+CJjBFgBZBGUSjOkbnJMF\n4of7d0lDSG8HKGpiTmQR0pAMxwP5P9m+CDcMbRxxDaMLp0g88ryAF4hS6Uz6aKOB\nyTCBxjAdBgNVHQ4EFgQUzLDihA7Eg0aLEZw0n74SLMu5dWUwHwYDVR0jBBgwFoAU\nzLDihA7Eg0aLEZw0n74SLMu5dWUwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E\nBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMEQGA1UdEQQ9MDuH\nBKwef0mCEHRsc2NhLnZrdS51ZG4udm6CEHRsc2NhLXZrdS11ZG4tdm6CCWxvY2Fs\naG9zdIcEfwAAATAKBggqhkjOPQQDAgNIADBFAiEAqcP7aRP0gtr9avVwXpI0O5YA\nSUo5fOZAP++cB6ctt5QCICybYYxkQQOpYBqhHRW2vU3Yb64LMbp7BhLC9dcdI+Oc\n-----END CERTIFICATE-----"
+      }
+    },
+    "orderer3.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7012",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer3.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICnDCCAkKgAwIBAgIUT32OhD1Ly6DT7BAY2C1fWN6DXV8wCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52\na3UudWRuLnZuMB4XDTIxMTAyNTEwNDk1M1oXDTMxMTAyMzEwNDk1M1owaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQHDAdSYWxl\naWdoMRMwEQYDVQQKDAp2a3UudWRuLnZuMRkwFwYDVQQDDBB0bHNjYS52a3UudWRu\nLnZuMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErW7+CJjBFgBZBGUSjOkbnJMF\n4of7d0lDSG8HKGpiTmQR0pAMxwP5P9m+CDcMbRxxDaMLp0g88ryAF4hS6Uz6aKOB\nyTCBxjAdBgNVHQ4EFgQUzLDihA7Eg0aLEZw0n74SLMu5dWUwHwYDVR0jBBgwFoAU\nzLDihA7Eg0aLEZw0n74SLMu5dWUwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E\nBAMCAaYwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMEQGA1UdEQQ9MDuH\nBKwef0mCEHRsc2NhLnZrdS51ZG4udm6CEHRsc2NhLXZrdS11ZG4tdm6CCWxvY2Fs\naG9zdIcEfwAAATAKBggqhkjOPQQDAgNIADBFAiEAqcP7aRP0gtr9avVwXpI0O5YA\nSUo5fOZAP++cB6ctt5QCICybYYxkQQOpYBqhHRW2vU3Yb64LMbp7BhLC9dcdI+Oc\n-----END CERTIFICATE-----"
+      }
+    }
+  },
+  "peers": {
+    "peer1.it.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7002",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.it.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICsjCCAligAwIBAgIUDgDUyPMVSfUMgB/LBvWeYfdIXyAwCgYIKoZIzj0EAwIw\nbzELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRYwFAYDVQQKDA1pdC52a3UudWRuLnZuMR0wGwYDVQQDDBR0bHNj\nYTEuaXQudmt1LnVkbi52bjAeFw0yMTEwMjUxMDQ5MjdaFw0zMTEwMjMxMDQ5Mjda\nMG8xCzAJBgNVBAYTAlVTMRcwFQYDVQQIDA5Ob3J0aCBDYXJvbGluYTEQMA4GA1UE\nBwwHUmFsZWlnaDEWMBQGA1UECgwNaXQudmt1LnVkbi52bjEdMBsGA1UEAwwUdGxz\nY2ExLml0LnZrdS51ZG4udm4wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAStC32C\nBsiCwnvrOVXzvh/R2utZliKiejcdiqpH1j5EkAE+S/SostNxV3Ld5oMg83sxZ3Vh\nb4wQbuC9/PyRPJi4o4HRMIHOMB0GA1UdDgQWBBQ7l2gjLacOwVKRqMqHrQN0Bfe7\nqjAfBgNVHSMEGDAWgBQ7l2gjLacOwVKRqMqHrQN0Bfe7qjAPBgNVHRMBAf8EBTAD\nAQH/MA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUH\nAwIwTAYDVR0RBEUwQ4cErB5/SYIUdGxzY2ExLml0LnZrdS51ZG4udm6CFHRsc2Nh\nMS1pdC12a3UtdWRuLXZugglsb2NhbGhvc3SHBH8AAAEwCgYIKoZIzj0EAwIDSAAw\nRQIgT99VO7m9lj01GPh+9FNwxiXOMunxVGuuLQnaHv0KVMgCIQCEFXPz01+vckV7\nP8EJsqXMONZtazAo+Xn1BW+khsuXNA==\n-----END CERTIFICATE-----"
+      }
+    },
+    "peer2.it.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7003",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer2.it.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICsjCCAligAwIBAgIUDgDUyPMVSfUMgB/LBvWeYfdIXyAwCgYIKoZIzj0EAwIw\nbzELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRYwFAYDVQQKDA1pdC52a3UudWRuLnZuMR0wGwYDVQQDDBR0bHNj\nYTEuaXQudmt1LnVkbi52bjAeFw0yMTEwMjUxMDQ5MjdaFw0zMTEwMjMxMDQ5Mjda\nMG8xCzAJBgNVBAYTAlVTMRcwFQYDVQQIDA5Ob3J0aCBDYXJvbGluYTEQMA4GA1UE\nBwwHUmFsZWlnaDEWMBQGA1UECgwNaXQudmt1LnVkbi52bjEdMBsGA1UEAwwUdGxz\nY2ExLml0LnZrdS51ZG4udm4wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAStC32C\nBsiCwnvrOVXzvh/R2utZliKiejcdiqpH1j5EkAE+S/SostNxV3Ld5oMg83sxZ3Vh\nb4wQbuC9/PyRPJi4o4HRMIHOMB0GA1UdDgQWBBQ7l2gjLacOwVKRqMqHrQN0Bfe7\nqjAfBgNVHSMEGDAWgBQ7l2gjLacOwVKRqMqHrQN0Bfe7qjAPBgNVHRMBAf8EBTAD\nAQH/MA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUH\nAwIwTAYDVR0RBEUwQ4cErB5/SYIUdGxzY2ExLml0LnZrdS51ZG4udm6CFHRsc2Nh\nMS1pdC12a3UtdWRuLXZugglsb2NhbGhvc3SHBH8AAAEwCgYIKoZIzj0EAwIDSAAw\nRQIgT99VO7m9lj01GPh+9FNwxiXOMunxVGuuLQnaHv0KVMgCIQCEFXPz01+vckV7\nP8EJsqXMONZtazAo+Xn1BW+khsuXNA==\n-----END CERTIFICATE-----"
+      }
+    },
+    "peer1.ba.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7004",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.ba.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICsjCCAligAwIBAgIUcYfP3LyRsTeTAbijACdzSxjMFEEwCgYIKoZIzj0EAwIw\nbzELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRYwFAYDVQQKDA1iYS52a3UudWRuLnZuMR0wGwYDVQQDDBR0bHNj\nYTEuYmEudmt1LnVkbi52bjAeFw0yMTEwMjUxMDQ5MDJaFw0zMTEwMjMxMDQ5MDJa\nMG8xCzAJBgNVBAYTAlVTMRcwFQYDVQQIDA5Ob3J0aCBDYXJvbGluYTEQMA4GA1UE\nBwwHUmFsZWlnaDEWMBQGA1UECgwNYmEudmt1LnVkbi52bjEdMBsGA1UEAwwUdGxz\nY2ExLmJhLnZrdS51ZG4udm4wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATt7jOD\nk/8ZfhYy3Dsf0CUMU01Z4CerORQeyumV2e+nyp6kjCe6wdb+XVa7xdC0fVjRIx8X\nZyB4+0E4D0VlhU0Uo4HRMIHOMB0GA1UdDgQWBBSyDeUz++yA2D1Cykzxn47iip44\npjAfBgNVHSMEGDAWgBSyDeUz++yA2D1Cykzxn47iip44pjAPBgNVHRMBAf8EBTAD\nAQH/MA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUH\nAwIwTAYDVR0RBEUwQ4cErB5/SYIUdGxzY2ExLmJhLnZrdS51ZG4udm6CFHRsc2Nh\nMS1iYS12a3UtdWRuLXZugglsb2NhbGhvc3SHBH8AAAEwCgYIKoZIzj0EAwIDSAAw\nRQIgcP9GiFbwbIs8p3ErQv8hJyzU5+5VIJQX3tRb0oDww08CIQDDX1xbFHjto2nr\nwcwDn3cEvOIgzn3BwIXUp1mp337uvg==\n-----END CERTIFICATE-----"
+      }
+    },
+    "peer2.ba.vku.udn.vn": {
+      "url": "grpcs://172.30.127.73:7005",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer2.ba.vku.udn.vn"
+      },
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICsjCCAligAwIBAgIUcYfP3LyRsTeTAbijACdzSxjMFEEwCgYIKoZIzj0EAwIw\nbzELMAkGA1UEBhMCVVMxFzAVBgNVBAgMDk5vcnRoIENhcm9saW5hMRAwDgYDVQQH\nDAdSYWxlaWdoMRYwFAYDVQQKDA1iYS52a3UudWRuLnZuMR0wGwYDVQQDDBR0bHNj\nYTEuYmEudmt1LnVkbi52bjAeFw0yMTEwMjUxMDQ5MDJaFw0zMTEwMjMxMDQ5MDJa\nMG8xCzAJBgNVBAYTAlVTMRcwFQYDVQQIDA5Ob3J0aCBDYXJvbGluYTEQMA4GA1UE\nBwwHUmFsZWlnaDEWMBQGA1UECgwNYmEudmt1LnVkbi52bjEdMBsGA1UEAwwUdGxz\nY2ExLmJhLnZrdS51ZG4udm4wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATt7jOD\nk/8ZfhYy3Dsf0CUMU01Z4CerORQeyumV2e+nyp6kjCe6wdb+XVa7xdC0fVjRIx8X\nZyB4+0E4D0VlhU0Uo4HRMIHOMB0GA1UdDgQWBBSyDeUz++yA2D1Cykzxn47iip44\npjAfBgNVHSMEGDAWgBSyDeUz++yA2D1Cykzxn47iip44pjAPBgNVHRMBAf8EBTAD\nAQH/MA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUH\nAwIwTAYDVR0RBEUwQ4cErB5/SYIUdGxzY2ExLmJhLnZrdS51ZG4udm6CFHRsc2Nh\nMS1iYS12a3UtdWRuLXZugglsb2NhbGhvc3SHBH8AAAEwCgYIKoZIzj0EAwIDSAAw\nRQIgcP9GiFbwbIs8p3ErQv8hJyzU5+5VIJQX3tRb0oDww08CIQDDX1xbFHjto2nr\nwcwDn3cEvOIgzn3BwIXUp1mp337uvg==\n-----END CERTIFICATE-----"
+      }
+    }
+  },
+  "entityMatchers": {
+    "orderer": [
+      { "mappedHost": "orderer1.vku.udn.vn",
+        "pattern": "(\\w*)orderer1.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "orderer1.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7010"
+      },
+      { "mappedHost": "orderer2.vku.udn.vn",
+        "pattern": "(\\w*)orderer2.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "orderer2.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7011"
+      },
+      { "mappedHost": "orderer3.vku.udn.vn",
+        "pattern": "(\\w*)orderer3.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "orderer3.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7012"
+      }
+    ],
+    "peer": [
+      { "mappedHost": "peer1.it.vku.udn.vn",
+        "pattern": "(\\w*)peer1.it.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "peer1.it.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7002"
+      },
+      { "mappedHost": "peer2.it.vku.udn.vn",
+        "pattern": "(\\w*)peer2.it.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "peer2.it.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7003"
+      },
+      { "mappedHost": "peer1.ba.vku.udn.vn",
+        "pattern": "(\\w*)peer1.ba.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "peer1.ba.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7004"
+      },
+      { "mappedHost": "peer2.ba.vku.udn.vn",
+        "pattern": "(\\w*)peer2.ba.vku.udn.vn(\\w*)",
+        "sslTargetOverrideUrlSubstitutionExp": "peer2.ba.vku.udn.vn",
+        "urlSubstitutionExp": "172.30.127.73:7005"
+      }
+    ]
+  }
+}

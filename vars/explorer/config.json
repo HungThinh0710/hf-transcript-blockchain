@@ -1,0 +1,9 @@
+{
+  "network-configs": {
+    "VKUNetwork": {
+      "name": "VKUNetwork",
+      "profile": "./connection-profile/vku_profile.json"
+    }
+  },
+  "license": "Apache-2.0"
+}
