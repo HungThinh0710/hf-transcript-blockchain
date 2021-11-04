@@ -1,0 +1,184 @@
+---
+Organizations:
+  - &ba-vku-udn-vn
+      Name: ba-vku-udn-vn
+      ID: ba-vku-udn-vn
+      MSPDir: keyfiles/peerOrganizations/ba.vku.udn.vn/msp
+      Policies:
+        Readers:
+          Type: Signature
+          Rule: "OR('ba-vku-udn-vn.admin', 'ba-vku-udn-vn.peer', 'ba-vku-udn-vn.client')"
+        Writers:
+          Type: Signature
+          Rule: "OR('ba-vku-udn-vn.admin', 'ba-vku-udn-vn.client')"
+        Admins:
+          Type: Signature
+          Rule: "OR('ba-vku-udn-vn.admin')"
+        Endorsement:
+          Type: Signature
+          Rule: "OR('ba-vku-udn-vn.peer')"
+
+      AnchorPeers:
+      - Host: 192.168.93.168
+        Port: 7004
+      - Host: 192.168.93.168
+        Port: 7005
+  - &it-vku-udn-vn
+      Name: it-vku-udn-vn
+      ID: it-vku-udn-vn
+      MSPDir: keyfiles/peerOrganizations/it.vku.udn.vn/msp
+      Policies:
+        Readers:
+          Type: Signature
+          Rule: "OR('it-vku-udn-vn.admin', 'it-vku-udn-vn.peer', 'it-vku-udn-vn.client')"
+        Writers:
+          Type: Signature
+          Rule: "OR('it-vku-udn-vn.admin', 'it-vku-udn-vn.client')"
+        Admins:
+          Type: Signature
+          Rule: "OR('it-vku-udn-vn.admin')"
+        Endorsement:
+          Type: Signature
+          Rule: "OR('it-vku-udn-vn.peer')"
+
+      AnchorPeers:
+      - Host: 192.168.93.168
+        Port: 7002
+      - Host: 192.168.93.168
+        Port: 7003
+  - &vku-udn-vn
+      Name: vku-udn-vn
+      ID: vku-udn-vn
+      MSPDir: keyfiles/ordererOrganizations/vku.udn.vn/msp
+      Policies:
+        Readers:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.member')"
+        Writers:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.member')"
+        Admins:
+          Type: Signature
+          Rule: "OR('vku-udn-vn.admin')"
+
+Capabilities:
+  Channel: &ChannelCapabilities
+    V2_0: true
+
+  Orderer: &OrdererCapabilities
+    V2_0: true
+
+  Application: &ApplicationCapabilities
+    V2_0: true
+
+Application: &ApplicationDefaults
+  Organizations:
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    LifecycleEndorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+    Endorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+
+  Capabilities:
+    <<: *ApplicationCapabilities
+
+Orderer: &OrdererDefaults
+  OrdererType: etcdraft
+
+  BatchTimeout: 2s
+
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+
+  Addresses:
+  - 192.168.93.168:7010
+  - 192.168.93.168:7011
+  - 192.168.93.168:7012
+  EtcdRaft:
+    Consenters:
+    - Host: 192.168.93.168
+      Port: 7010
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
+    - Host: 192.168.93.168
+      Port: 7011
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
+    - Host: 192.168.93.168
+      Port: 7012
+      ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt
+      ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt
+  Organizations:
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    BlockValidation:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+
+  Capabilities:
+    <<: *ChannelCapabilities
+
+Profiles:
+  OrgChannel:
+    Consortium: SampleConsortium
+    <<: *ChannelDefaults
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+      - *ba-vku-udn-vn
+      - *it-vku-udn-vn
+      Capabilities:
+        <<: *ApplicationCapabilities
+
+  OrdererGenesis:
+    <<: *ChannelDefaults
+    Capabilities:
+      <<: *ChannelCapabilities
+    Orderer:
+      <<: *OrdererDefaults
+      Organizations:
+      - *vku-udn-vn
+      Capabilities:
+        <<: *OrdererCapabilities
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+      - <<: *vku-udn-vn
+    Consortiums:
+      SampleConsortium:
+        Organizations:
+        - *ba-vku-udn-vn
+        - *it-vku-udn-vn

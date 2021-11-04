@@ -15,7 +15,10 @@ cat << "EOF"
 |                                                                                  @ Hưng Thịnh - Phoenix     |
 ===============================================================================================================
 EOF
+sudo chown -R phoenix $PWD
 sudo rm -rf ./vars
+minifab cleanup -o it.vku.udn.vn
+
 cat << "EOF"
 =============================================================================
 |                          INITIALIZE NETWORK                               |
@@ -66,13 +69,3 @@ sudo cp -R $PWD/artifacts/application/. $PWD/vars/app/node
 cp $PWD/vars/profiles/vku_connection_for_nodesdk.json $PWD/vars/app/node/connection.json
 
 echo INITIALIZE APPLICATION SUCCESSFULLY...
-
-cat << "EOF"
-=============================================================================
-|                          INITIALIZE APPLICATION                           |
-| - Remember sudo chown -R phoenix $PWD                                     |
-| - IN PROGRESS...                                                          |
-|                                                                           |
-|                                                @ Hưng Thịnh - Phoenix     |
-=============================================================================
-EOF
