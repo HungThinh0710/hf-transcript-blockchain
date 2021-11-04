@@ -10,7 +10,7 @@ discover endorsers --peerTLSCA $PEER_TLS_ROOTCERT_FILE \
   --userKey $ADMINPRIVATEKEY \
   --userCert $ADMINCERT \
   --MSP it-vku-udn-vn --channel vku \
-  --server 172.30.127.73:7002 \
+  --server 192.168.93.168:7002 \
   --chaincode transcript | jq '.[0]' | \
   jq 'del(.. | .Identity?)' | jq 'del(.. | .LedgerHeight?)' \
   > /vars/discover/vku_transcript_endorsers.json
@@ -19,4 +19,4 @@ discover config --peerTLSCA $PEER_TLS_ROOTCERT_FILE \
   --userKey $ADMINPRIVATEKEY \
   --userCert $ADMINCERT \
   --MSP it-vku-udn-vn --channel vku \
-  --server 172.30.127.73:7002 > /vars/discover/vku_config.json
+  --server 192.168.93.168:7002 > /vars/discover/vku_config.json

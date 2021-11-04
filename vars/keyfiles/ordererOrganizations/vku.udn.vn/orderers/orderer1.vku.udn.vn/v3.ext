@@ -1,4 +1,4 @@
 keyUsage = critical,digitalSignature
 basicConstraints = critical,CA:FALSE
-subjectAltName=IP:172.30.127.73,DNS:orderer1.vku.udn.vn,DNS:orderer1-vku-udn-vn,DNS:localhost,IP:127.0.0.1
+subjectAltName=IP: 192.168.93.168,DNS:orderer1.vku.udn.vn,DNS:orderer1-vku-udn-vn,DNS:localhost,IP:127.0.0.1
 authorityKeyIdentifier = keyid,issuer

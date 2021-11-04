@@ -3,7 +3,7 @@
   "description": "Generated network configuration file",
   "version": "0.1",
   "client": {
-    "organization": "it.vku.udn.vn",
+    "organization": "ba.vku.udn.vn",
     "credentialStore": {
       "path": "/tmp/hfc-kvs",
       "cryptoStore": {
@@ -56,7 +56,7 @@
   },
   "orderers": {
     "orderer1.vku.udn.vn": {
-      "url": "172.30.127.73:7010",
+      "url": "192.168.93.168:7010",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "orderer1.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -66,7 +66,7 @@
       }
     },
     "orderer2.vku.udn.vn": {
-      "url": "172.30.127.73:7011",
+      "url": "192.168.93.168:7011",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "orderer2.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -76,7 +76,7 @@
       }
     },
     "orderer3.vku.udn.vn": {
-      "url": "172.30.127.73:7012",
+      "url": "192.168.93.168:7012",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "orderer3.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -88,7 +88,7 @@
   },
   "peers": {
     "peer1.it.vku.udn.vn": {
-      "url": "172.30.127.73:7002",
+      "url": "192.168.93.168:7002",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "peer1.it.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -98,7 +98,7 @@
       }
     },
     "peer2.it.vku.udn.vn": {
-      "url": "172.30.127.73:7003",
+      "url": "192.168.93.168:7003",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "peer2.it.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -108,7 +108,7 @@
       }
     },
     "peer1.ba.vku.udn.vn": {
-      "url": "172.30.127.73:7004",
+      "url": "192.168.93.168:7004",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "peer1.ba.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -118,7 +118,7 @@
       }
     },
     "peer2.ba.vku.udn.vn": {
-      "url": "172.30.127.73:7005",
+      "url": "192.168.93.168:7005",
       "grpcOptions": {
         "grpc.ssl_target_name_override": "peer2.ba.vku.udn.vn",
         "grpc-max-send-message-length": 15
@@ -130,7 +130,7 @@
   },
   "certificateAuthorities": {
     "ca1.it.vku.udn.vn": {
-      "url": "https://172.30.127.73:7000",
+      "url": "https://192.168.93.168:7000",
       "tlsCACerts": {
         "path": "/keyfiles/peerOrganizations/it.vku.udn.vn/ca/ca1.it.vku.udn.vn-cert.pem"
       },
@@ -139,7 +139,7 @@
       "registrar": { "enrollId": "admin", "enrollSecret": "adminpw" }
     },
     "ca1.ba.vku.udn.vn": {
-      "url": "https://172.30.127.73:7001",
+      "url": "https://192.168.93.168:7001",
       "tlsCACerts": {
         "path": "/keyfiles/peerOrganizations/ba.vku.udn.vn/ca/ca1.ba.vku.udn.vn-cert.pem"
       },

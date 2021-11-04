@@ -4,21 +4,21 @@
     "G0": [
       {
         "MSPID": "ba-vku-udn-vn",
-        "Endpoint": "172.30.127.73:7004"
+        "Endpoint": "192.168.93.168:7005"
       },
       {
         "MSPID": "ba-vku-udn-vn",
-        "Endpoint": "172.30.127.73:7005"
+        "Endpoint": "192.168.93.168:7004"
       }
     ],
     "G1": [
       {
         "MSPID": "it-vku-udn-vn",
-        "Endpoint": "172.30.127.73:7003"
+        "Endpoint": "192.168.93.168:7003"
       },
       {
         "MSPID": "it-vku-udn-vn",
-        "Endpoint": "172.30.127.73:7002"
+        "Endpoint": "192.168.93.168:7002"
       }
     ]
   },

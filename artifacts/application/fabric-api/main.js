@@ -7,6 +7,7 @@
 const { Gateway, Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
+const sha256 = require('js-sha256');
 
 async function main() {
     try {
@@ -15,7 +16,8 @@ async function main() {
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
-        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
+        // const walletPath = path.join('/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
+        const walletPath = path.join('../../profiles/vscode/wallets', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
@@ -62,7 +64,7 @@ async function main() {
                 },
             ]
         }];
-        let student = 
+        let student =
             {
                 studentID: '17IT205',
                 studentName: 'lee sin',
@@ -70,8 +72,28 @@ async function main() {
                 transcripts
             };
 
-        await contract.submitTransaction('addNewStudentTranscripts', '17IT205', JSON.stringify(student));
+        const alba = { a: 1, b: 2};
+        const albaInsert = JSON.stringify(alba);
+        const transaction = contract.createTransaction('addNewStudentTranscripts');
+        const result = await transaction.submit('17IT205', JSON.stringify(student));
+
+
+
+
+        // const result = await transaction.submit('17IT205', albaInsert);
+
+        console.log("=========== RESULT ===========");
+        console.log(result.toString('hex'));
+        console.log("=========== TxID ===========");
+        console.log(transaction.getTransactionId());
         console.log('Transaction has been submitted');
+
+        // fs.writeFile("./buffer.json", result.toString(), function(err) {
+        //     if(err) {
+        //         return console.log(err);
+        //     }
+        //     console.log("The file transaction.json was saved!");
+        // });
 
         // Disconnect from the gateway.
         await gateway.disconnect();

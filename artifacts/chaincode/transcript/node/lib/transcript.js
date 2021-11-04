@@ -8,7 +8,7 @@
 
 const { Contract } = require('fabric-contract-api');
 
-class Education extends Contract {
+class Transcript extends Contract {
 
     async initLedger(ctx) {
         console.log('============= START : Initialize Ledger ===========');
@@ -74,7 +74,6 @@ class Education extends Contract {
                 }],
             }
         ];
-
         for (let i = 0; i < students.length; i++) {
             students[i].docType = 'example_variable';
             await ctx.stub.putState( students[i].studentID, Buffer.from(JSON.stringify(students[i])));
@@ -85,9 +84,7 @@ class Education extends Contract {
     }
 
     async addNewStudentTranscripts(ctx, studentID, student){
-        // let transcripts = JSON.parse(trans);
-        
-        await ctx.stub.putState(studentID, Buffer.from(student));
+        return await ctx.stub.putState(studentID, Buffer.from(student));
     }
 
     async queryCar(ctx, carNumber) {
@@ -99,7 +96,7 @@ class Education extends Contract {
         return carAsBytes.toString();
     }
 
-    async createCarrr(ctx, carNumber, make, model, color, owner) {
+    async createCar(ctx, carNumber, make, model, color, owner) {
         console.info('============= START : Create Car ===========');
 
         const car = {
@@ -149,5 +146,4 @@ class Education extends Contract {
 
 }
 
-module.exports.Education = Education;
-module.exports.contracts = [ Education ];
+module.exports = Transcript;

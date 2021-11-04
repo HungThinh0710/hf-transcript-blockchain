@@ -19,9 +19,9 @@ Organizations:
           Rule: "OR('ba-vku-udn-vn.peer')"
 
       AnchorPeers:
-      - Host: 172.30.127.73
+      - Host: 192.168.93.168
         Port: 7004
-      - Host: 172.30.127.73
+      - Host: 192.168.93.168
         Port: 7005
   - &it-vku-udn-vn
       Name: it-vku-udn-vn
@@ -42,9 +42,9 @@ Organizations:
           Rule: "OR('it-vku-udn-vn.peer')"
 
       AnchorPeers:
-      - Host: 172.30.127.73
+      - Host: 192.168.93.168
         Port: 7002
-      - Host: 172.30.127.73
+      - Host: 192.168.93.168
         Port: 7003
   - &vku-udn-vn
       Name: vku-udn-vn
@@ -104,20 +104,20 @@ Orderer: &OrdererDefaults
     PreferredMaxBytes: 512 KB
 
   Addresses:
-  - 172.30.127.73:7010
-  - 172.30.127.73:7011
-  - 172.30.127.73:7012
+  - 192.168.93.168:7010
+  - 192.168.93.168:7011
+  - 192.168.93.168:7012
   EtcdRaft:
     Consenters:
-    - Host: 172.30.127.73
+    - Host: 192.168.93.168
       Port: 7010
       ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
       ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer1.vku.udn.vn/tls/server.crt
-    - Host: 172.30.127.73
+    - Host: 192.168.93.168
       Port: 7011
       ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
       ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/server.crt
-    - Host: 172.30.127.73
+    - Host: 192.168.93.168
       Port: 7012
       ClientTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt
       ServerTLSCert: keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer3.vku.udn.vn/tls/server.crt

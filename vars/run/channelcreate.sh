@@ -8,11 +8,11 @@ configtxgen -profile OrgChannel \
 
 export CORE_PEER_TLS_ENABLED=true
 export CORE_PEER_ID=cli
-export CORE_PEER_ADDRESS=172.30.127.73:7003
-export CORE_PEER_TLS_ROOTCERT_FILE=/vars/keyfiles/peerOrganizations/it.vku.udn.vn/peers/peer2.it.vku.udn.vn/tls/ca.crt
+export CORE_PEER_ADDRESS=192.168.93.168:7002
+export CORE_PEER_TLS_ROOTCERT_FILE=/vars/keyfiles/peerOrganizations/it.vku.udn.vn/peers/peer1.it.vku.udn.vn/tls/ca.crt
 export CORE_PEER_LOCALMSPID=it-vku-udn-vn
 export CORE_PEER_MSPCONFIGPATH=/vars/keyfiles/peerOrganizations/it.vku.udn.vn/users/Admin@it.vku.udn.vn/msp
-export ORDERER_ADDRESS=172.30.127.73:7011
+export ORDERER_ADDRESS=192.168.93.168:7011
 export ORDERER_TLS_CA=/vars/keyfiles/ordererOrganizations/vku.udn.vn/orderers/orderer2.vku.udn.vn/tls/ca.crt
 peer channel create -c vku -f vku.tx -o $ORDERER_ADDRESS \
   --cafile $ORDERER_TLS_CA --tls

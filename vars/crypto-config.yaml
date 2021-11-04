@@ -5,13 +5,13 @@ OrdererOrgs:
     Specs:
       - Hostname: orderer1
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
       - Hostname: orderer2
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
       - Hostname: orderer3
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
 
 PeerOrgs:
   - Name: ba.vku.udn.vn
@@ -27,11 +27,11 @@ PeerOrgs:
       - Hostname: peer1
         CommonName: peer1.ba.vku.udn.vn
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
       - Hostname: peer2
         CommonName: peer2.ba.vku.udn.vn
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
   - Name: it.vku.udn.vn
     Domain: it.vku.udn.vn
     EnableNodeOUs: true
@@ -45,8 +45,8 @@ PeerOrgs:
       - Hostname: peer1
         CommonName: peer1.it.vku.udn.vn
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
       - Hostname: peer2
         CommonName: peer2.it.vku.udn.vn
         SANS:
-          - 172.30.127.73
+          - 192.168.93.168
