@@ -6,6 +6,10 @@ const authenticateService = require('../services/authenticate-service');
 exports.login = async (req, res) => {
     const payload = _.get(req, 'body', {});
     try {
+        console.log("HEADERS")
+        console.log(req.headers);
+        console.log("DATA")
+        console.log(req.body);
         const result = await authenticateService.login(payload);
         if(result === false || !result.success)
             return res.send(new ReturnResult(null, null, null, result.message));

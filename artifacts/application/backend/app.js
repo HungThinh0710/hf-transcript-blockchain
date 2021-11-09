@@ -1,14 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const secretGuardMiddleware = require('./middleware/api-secret-guard');
 const helmet = require('helmet');
 const config = require('./config');
 const ReturnResult = require('./libs/ReturnResult');
-const secretGuardMiddleware = require('./middleware/api-secret-guard');
 const app = express();
 // const mongoose = require('mongoose');
-//
 // mongoose.connect(config.get('mongoDB.url'), { useNewUrlParser: true });
 
 app.use(logger('dev'));
@@ -17,8 +15,8 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(helmet());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
 
 app.use(secretGuardMiddleware);
 
