@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require("jsonwebtoken");
 const config = require('../config');
+const colorsLog = require('../config/colors');
 
 const setErrorReturn = async (errorCode, msg) => {
     let result = {
@@ -100,12 +101,12 @@ const verifyUserWalletWithCouchDBWallet = async (couchDBWalletIdentity, userWall
     const isMatchedPrivKey = userPrivKey.localeCompare(couchDBWalletPrivKey);
     const isMatchedType = userWalletKey.localeCompare(couchDBWalletType);
 
-    console.log("[Verify User's Wallet] --- [0 -> matched]");
-    console.log("[STEP 1 - Certificate]: " + isMatchedCertificate);
-    console.log("[STEP 2 - Private Key]: " + isMatchedPrivKey);
-    console.log("[STEP 3 - Type]: " + isMatchedType);
+    console.log(colorsLog.FgCyan,"[Verify User's Wallet]");
+    console.log(isMatchedCertificate === 0 ? colorsLog.FgGreen : colorsLog.FgRed, `[STEP 1 - Certificate]: ${isMatchedCertificate === 0 ? 'PASSED' : 'FAILED'}`);
+    console.log(isMatchedPrivKey === 0 ? colorsLog.FgGreen : colorsLog.FgRed, `[STEP 2 - Private Key]: ${isMatchedPrivKey === 0 ? 'PASSED' : 'FAILED'}`);
+    console.log(isMatchedType === 0 ? colorsLog.FgGreen : colorsLog.FgRed, `[STEP 3 - Identity Type]: ${isMatchedType === 0 ? 'PASSED' : 'FAILED'}`);
 
-    return isMatchedCertificate == 0 && isMatchedPrivKey == 0 && isMatchedType == 0;
+    return isMatchedCertificate === 0 && isMatchedPrivKey === 0 && isMatchedType === 0;
 }
 
 exports.login = async (payload) => {
@@ -119,25 +120,28 @@ exports.login = async (payload) => {
         const userIdentity = await wallet.get(email);
 
         if (!userIdentity) {
-            console.log(`[LOGIN FAILED]: account "${email}" is not exist`);
-            return setErrorReturn(1, `Account ${email} is not exist`);
+            console.log(colorsLog.FgRed,`[LOGIN FAILED]: account "${email}" is not exist.`);
+            return setErrorReturn(1, `Account ${email} is not exist.`);
         }
-
         const isAuthenticated = await verifyUserWalletWithCouchDBWallet(userIdentity, credentials);
-        console.log("Is this wallet authenticated: " + isAuthenticated);
 
+        console.log(isAuthenticated === true ? colorsLog.FgGreen : colorsLog.FgRed,`[Result Verify User's Wallet Process]: ${isAuthenticated === true ? 'PASSED' : 'FAILED'}`);
+        if(!isAuthenticated){
+            console.log(colorsLog.FgRed,`[LOGIN FAILED]: Wallet of "${email}" is not valid.`);
+            return setErrorReturn(4, '[Fabric API]: Your identity wallet is not valid.');
+        }
         // Generate Token
         const exp = Math.floor(Date.now() / 1000) + parseInt(Constant.JWT_EXPIRES_TIME);
 
         const token = jwt.sign({
             email: email,
             org: org,
-        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '12h' });
+        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '1h'});
 
-        console.log(`Successfully logged with ${email}`);
+        console.log(colorsLog.FgGreen,`[LOGIN SUCCESSFULLY]: Logged successfully with ${email} identity.`);
         return setSuccessReturn(Constant.messages.REGISTER_USER_SUCCESS, token)
     } catch (error) {
-        console.error(`Failed to enroll admin user "admin": ${error}`);
+        console.error(colorsLog.FgRed,`Failed to enroll admin user "admin": ${error}`);
         console.log(error);
         // process.exit(1);
         return setErrorReturn(100, '[Fabric API]: '+ error.message);
