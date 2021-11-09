@@ -70,4 +70,16 @@ exports.betaFeature = async (req, res) => {
     }
 }
 
+exports.betaPost = async (req, res) => {
+    const payload = _.get(req, 'body', {});
+    try {
+        const result = await transcriptsService.betaPost(payload);
+        res.send(new ReturnResult(result, null, Constants.messages.UPDATE_TASK_SUCCESS, null));
+    } catch (err) {
+        res.status(400).send(new ReturnResult(null, null, null, err.message, true));
+    }
+}
+
+
+
 

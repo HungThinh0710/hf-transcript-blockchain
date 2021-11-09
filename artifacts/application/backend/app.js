@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const config = require('./config');
 const ReturnResult = require('./libs/ReturnResult');
+const secretGuardMiddleware = require('./middleware/api-secret-guard');
 const app = express();
 // const mongoose = require('mongoose');
 //
@@ -19,7 +20,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(secretGuardMiddleware);
+
 app.use('/', require('./routes'));
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

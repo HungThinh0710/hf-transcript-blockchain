@@ -3,6 +3,7 @@ module.exports = Object.freeze({
     ALGORITHM: 'aes-256-ctr',
     EXPIRES: 4320,
     VERIFICATION_EXPIRES: 24,
+    JWT_EXPIRES_TIME: 24,
     messages: {
         FORBIDDEN: 'Forbidden request',
         AUTHEN_SUCCESS: 'Authentication success.',
@@ -24,6 +25,9 @@ module.exports = Object.freeze({
         READ_ALL_TASK_SUCCESS: 'The list of tasks have been read.',
         UPDATE_TASK_SUCCESS: 'The task has been updated.',
         TASK_NOT_FOUND: 'The task was not found.',
-        DELETE_TASK_SUCCESS: 'The task has been deleted.'
+        DELETE_TASK_SUCCESS: 'The task has been deleted.',
+        // ENROLL
+        ENROLL_ADMIN_SUCCESS: 'Enroll admin successfully (Alpha API)',
+        REGISTER_USER_SUCCESS: 'Register user successfully'
     }
 });

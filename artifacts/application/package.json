@@ -11,13 +11,17 @@
     "license": "Apache-2.0",
     "dependencies": {
         "body-parser": "^1.19.0",
+        "config": "^3.3.6",
         "convict": "^6.2.1",
         "express": "^4.17.1",
+        "express-bearer-token": "^2.4.0",
+        "express-jwt": "^6.1.0",
         "fabric-ca-client": "^2.2.0",
         "fabric-common": "^2.2.10",
         "fabric-network": "^2.2.10",
         "fabric-protos": "^2.2.10",
         "js-sha256": "^0.9.0",
+        "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.21",
         "morgan": "^1.10.0",
         "tough-cookie": "^4.0.0"

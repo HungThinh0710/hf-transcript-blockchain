@@ -48,8 +48,13 @@ const config = convict({
   },
 
   jwt: {
-    TOKEN_KEY: 'dgj1qgh21j125125k1hj25j125ghj21g4j1h2g51j5g6b09u8',
+    TOKEN_KEY: '96055621a2e5cc8aa7bb1ee9c315bcf6c765de05fb25ecef71a678ab5b0a4167',
     SALT_ROUND: 10
+  },
+
+  secret: {
+    COMMUNICATE_API_KEY: "78e2f3e46fd40273b0abe50af1b9100cd6f4aab0eda33eb5bdcec55e003464d7", //SHA256
+    COMMUNICATE_API_KEY_RAW: "hyperledger-fabric-sdk-nodejs-with-laravel-system: HungThinh0710.aka.Phoenix.5674937106", //RAW_TEXT
   }
 });
 

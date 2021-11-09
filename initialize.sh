@@ -16,8 +16,12 @@ cat << "EOF"
 ===============================================================================================================
 EOF
 sudo chown -R phoenix $PWD
-sudo rm -rf ./vars
+echo STARTING DOCKER......
+sudo service docker start
+sleep 4
 minifab cleanup -o it.vku.udn.vn
+sudo rm -rf ./vars
+sleep 1
 
 cat << "EOF"
 =============================================================================

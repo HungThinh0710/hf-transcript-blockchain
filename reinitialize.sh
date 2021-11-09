@@ -15,33 +15,40 @@ cat << "EOF"
 |                                                                                  @ Hưng Thịnh - Phoenix     |
 ===============================================================================================================
 EOF
-
+sudo chown -R phoenix $PWD
+echo STARTING DOCKER......
+sudo service docker start
+sleep 4
 cat << "EOF"
 =============================================================================
 |                   BACKUP SOURCE (Application & Chaincode                  |
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-sudo chown -R phoenix $PWD
-
 #Clear unnecessary files & folders in production
+echo "CLEAR UNNECESSARY FILES & FOLDER"
 sudo rm -rf $PWD/vars/app/node/node_modules
 sudo rm $PWD/vars/app/node/package-lock.json
 sudo rm $PWD/vars/app/node/connection.json
 sudo find $PWD/vars/chaincode/transcript -name "*.tar.gz" -type f -delete
-
+sleep 2
 #Clear exist files & folders in artifacts
+echo "CLEAR APPLICATION SOURCE FROM ARTIFACTS"
 sudo rm -rf $PWD/artifacts/application
+sleep 1
+echo "CLEAR CHAINCODE SOURCE FROM ARTIFACTS"
 sudo rm -rf $PWD/artifacts/chaincode
-
+sleep 1
 mkdir $PWD/artifacts/application
 mkdir $PWD/artifacts/chaincode
-
+sleep 0.5
 #Copy files from production to artifacts
+echo "BACKUP API SOURCE TO ARTIFACTS"
 sudo cp -R $PWD/vars/app/node/. $PWD/artifacts/application/
+sleep 3.5
+echo "BACKUP CHAINCODE SOURCE TO ARTIFACTS"
 sudo cp -R $PWD/vars/chaincode/. $PWD/artifacts/chaincode/
-
-
+sleep 3.5
 #minifab down -o it.vku.udn.vn
 minifab cleanup -o it.vku.udn.vn
 sudo rm -rf ./vars

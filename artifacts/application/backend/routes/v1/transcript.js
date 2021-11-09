@@ -4,6 +4,7 @@ const router = express.Router();
 const transcriptsController = require('../../controllers/transcripts-controller');
 
 router.get('/beta/:trxid', transcriptsController.betaFeature);
+router.post('/beta', transcriptsController.betaPost);
 router.post('/add-new-transcript', transcriptsController.addNewTranscriptForStudent);
 
 module.exports = router;
