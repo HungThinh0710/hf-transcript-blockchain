@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Constants = require('../libs/Constants');
 const config = require('../config');
 const ReturnResult = require('../libs/ReturnResult');
-
+const colorConsole = require('../config/colors')
 
 module.exports = (req, res, next) => {
     try {
@@ -14,10 +14,10 @@ module.exports = (req, res, next) => {
             email: decodedToken.email,
             org: decodedToken.org,
         };
-        console.log("[AUTH-GUARD MIDDLEWARE]: SUCCESS");
+        console.log(colorConsole.FgGreen,"[AUTH-GUARD MIDDLEWARE]: SUCCESS");
         next();
     } catch (error) {
-        console.log("[AUTH-GUARD MIDDLEWARE]: FAILED -> " + error.message);
+        console.log(colorConsole.FgRed,"[AUTH-GUARD MIDDLEWARE]: FAILED -> " + error.message);
         res.status(401).json(
         new ReturnResult(error, null, null, `JWT Error: ${error.message}`)
         );

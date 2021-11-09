@@ -25,7 +25,7 @@ const setSuccessReturn = async (msg, token) => {
         credentials: {
             credentials:{
                 token: token,
-                type: 'bearer'
+                type: 'Bearer'
             }
         }
     }
@@ -108,7 +108,7 @@ const verifyUserWalletWithCouchDBWallet = async (couchDBWalletIdentity, userWall
     return isMatchedCertificate == 0 && isMatchedPrivKey == 0 && isMatchedType == 0;
 }
 
-exports.login = async (payload, secretKey) => {
+exports.login = async (payload) => {
     try {
         // Parse necessary info
         const email = payload.user.email;
@@ -131,9 +131,8 @@ exports.login = async (payload, secretKey) => {
 
         const token = jwt.sign({
             email: email,
-            org: org
-        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '1h' });
-
+            org: org,
+        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '12h' });
 
         console.log(`Successfully logged with ${email}`);
         return setSuccessReturn(Constant.messages.REGISTER_USER_SUCCESS, token)

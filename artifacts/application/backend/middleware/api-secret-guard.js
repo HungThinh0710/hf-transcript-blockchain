@@ -1,5 +1,6 @@
 const config = require('../config');
 const ReturnResult = require('../libs/ReturnResult');
+const colorConsole = require('../config/colors')
 
 module.exports = (req, res, next) => {
     try {
@@ -9,9 +10,9 @@ module.exports = (req, res, next) => {
             return res.status(401).json(new ReturnResult(null, null, null, `API Error: API Secret key is not valid`));
         next();
     } catch (error) {
-        console.log("[API-SECRET-GUARD MIDDLEWARE]: FAILED -> " + error.message);
+        console.log(colorConsole.FgRed,"[API-SECRET-GUARD MIDDLEWARE]: FAILED -> " + error.message);
         if(error instanceof TypeError){
-            return res.status(400).json(new ReturnResult(null, null, null, `API Error: API key is not found`));
+            return res.status(400).json(new ReturnResult(null, null, null, `API Error: API Secret key is not found`));
         }
         res.status(401).json(new ReturnResult(error, null, null, `API Error: ${error.message}`));
     }

@@ -3,7 +3,7 @@ module.exports = Object.freeze({
     ALGORITHM: 'aes-256-ctr',
     EXPIRES: 4320,
     VERIFICATION_EXPIRES: 24,
-    JWT_EXPIRES_TIME: 24,
+    JWT_EXPIRES_TIME: 3600,
     messages: {
         FORBIDDEN: 'Forbidden request',
         AUTHEN_SUCCESS: 'Authentication success.',
