@@ -8,10 +8,10 @@ exports.login = async (req, res) => {
     try {
         const result = await authenticateService.login(payload);
         if(result === false || !result.success)
-            return res.send(new ReturnResult(null, null, null, result.message));
-        return res.send(new ReturnResult(result.credentials, null, Constants.messages.AUTHEN_SUCCESS, null));
+            return res.send(new ReturnResult(null, null, result.message));
+        return res.send(new ReturnResult(result.credentials, Constants.messages.AUTHEN_SUCCESS, null));
     } catch (err) {
         console.log(err)
-        res.status(400).send(new ReturnResult(null, null, null, err.message, true));
+        res.status(400).send(new ReturnResult(null, null, err.message));
     }
 }

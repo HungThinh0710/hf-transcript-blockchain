@@ -1,12 +1,13 @@
 // const Models = require('../models');
 const { Gateway, Wallets } = require('fabric-network');
-const sha256 = require('js-sha256');
-const Constant = require('../libs/Constants');
 const fs = require('fs');
 const path = require('path');
 const { BlockDecoder } = require("fabric-common");
 const CCPandWallet = require('../fabrics/wallets');
-const GatewayAndNetwork = require('../fabrics/gateway-network');
+const { createGatewayAndNetwork } = require('../fabrics/gateway-network');
+const { parseErrorChaincodeToJSON } = require('../libs/ParseErrorChaincode');
+const { handleSuccessReturn, handleErrorReturn } = require('../libs/ServiceControllerReturn');
+const Constants = require('../libs/Constants');
 
 exports.addTranscript = async (email, studentID, payload) => {
     try {
@@ -14,12 +15,13 @@ exports.addTranscript = async (email, studentID, payload) => {
 
         // Check to see if we've already enrolled the admin user.
         const identity = await wallet.get(email);
+
         if (!identity) {
             console.log(`${email} identity can not be found in the wallet`);
             return;
         }
 
-        const { gateway, network } = await GatewayAndNetwork.createGatewayAndNetwork(ccp, wallet, email, 'udn');
+        const { gateway, network } = await createGatewayAndNetwork(ccp, wallet, email, 'udn');
 
         // Get the contract from the network.
         const contract = network.getContract('transcript');
@@ -40,11 +42,11 @@ exports.addTranscript = async (email, studentID, payload) => {
 
         // Disconnect from the gateway.
         await gateway.disconnect();
+        return handleSuccessReturn(returnPayload, Constants.messages.CREATE_NEW_TRANSCRIPT_SUCCESS);
 
-        return returnPayload;
     } catch (error) {
-        console.error(`Failed to enroll admin user "admin": ${error}`);
-        process.exit(1);
+        console.error(`Failed to submit a transaction": ${error}`);
+        return handleErrorReturn(parseErrorChaincodeToJSON(error.responses[0].response.message));
     }
 };
 

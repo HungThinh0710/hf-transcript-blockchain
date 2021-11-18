@@ -28,6 +28,7 @@ module.exports = Object.freeze({
         DELETE_TASK_SUCCESS: 'The task has been deleted.',
         // ENROLL
         ENROLL_ADMIN_SUCCESS: 'Enroll admin successfully (Alpha API)',
-        REGISTER_USER_SUCCESS: 'Register user successfully'
+        REGISTER_USER_SUCCESS: 'Register user successfully',
+        CREATE_NEW_TRANSCRIPT_SUCCESS: "The transcript has been created.",
     }
 });

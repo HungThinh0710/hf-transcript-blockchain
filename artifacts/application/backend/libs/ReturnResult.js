@@ -2,14 +2,12 @@ const config = require('../config');
 
 class ReturnResult {
 
-    constructor(value, values, message, errorMessage, isLog = false) {
+    constructor(data, message, errorMessage = null, code = 0, isLog = false) {
 
         // set local properties
-        this.value = value != null ? value : {};
-        this.values = (values != null && values) ? values : [];
-        this.total = values != null ? values.length : this.value != null ? 1 : 0;
+        this.data = data != null ? data : {};
         this.success = errorMessage == null;
-
+        this.code = code;
         // set up error message
         this.errorMessage =
             errorMessage != null ?
@@ -21,7 +19,7 @@ class ReturnResult {
         this.message = message;
 
         // date created
-        this.createdDate = new Date();
+        this.timestampt = new Date();
     }
 }
 

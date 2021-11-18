@@ -7,7 +7,7 @@
 'use strict';
 
 const { Contract } = require('fabric-contract-api');
-
+const { TranscriptError } = require('./error-extends');
 class Transcript extends Contract {
 
     async initLedger(ctx) {
@@ -99,7 +99,8 @@ class Transcript extends Contract {
         if(await this._isTranscriptExist(ctx, studentID) === false){
             return await ctx.stub.putState(studentID, Buffer.from(student));
         }
-        throw new Error(`Transcript for ${studentID} already exists.`);
+        // throw new Error(`Transcript for ${studentID} already exists.`);
+        throw TranscriptError('TRANSCRIPT_NOT_EXIST', `Transcript for ${studentID} already exists.`);
     }
 
     async updateTranscript(ctx, studentID, payload){

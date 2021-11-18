@@ -1,5 +1,4 @@
 const { Gateway } = require('fabric-network');
-const {createGatewayAndNetwork} = require("./gateway-network");
 
 const createAndConnectGateway = async (ccp, wallet, email) => {
     try {
