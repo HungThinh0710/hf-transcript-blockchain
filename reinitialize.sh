@@ -99,7 +99,7 @@ cat << "EOF"
 EOF
 sudo rm -rf $PWD/vars/app/node/*
 sudo cp -R $PWD/artifacts/application/. $PWD/vars/app/node
-cp $PWD/vars/profiles/vku_connection_for_nodesdk.json $PWD/vars/app/node/connection.json
+cp $PWD/vars/profiles/udn_connection_for_nodesdk.json $PWD/vars/app/node/connection.json
 
 echo INITIALIZE APPLICATION SUCCESSFULLY...
 

@@ -53,7 +53,7 @@ echo "[STEP 5]: DONE"
 
 # Reinstall modules
 echo "[STEP 6]: REINSTALL MODULES..."
-cp $PWD/vars/profiles/vku_connection_for_nodesdk.json $PWD/vars/app/node/connection.json
+cp $PWD/vars/profiles/udn_connection_for_nodesdk.json $PWD/vars/app/node/connection.json
 cd $PWD/vars/app/node/ && sudo npm install
 echo "[STEP 6]: DONE"
 echo ""

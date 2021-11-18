@@ -9,9 +9,9 @@ fabric:
   - "peer1.ued.udn.vn"
 #  - "peer2.ba.vku.udn.vn"
   orderers:
-  - "orderer1.vku.udn.vn"
-  - "orderer2.dut.udn.vn"
-  - "orderer3.ued.udn.vn"
+  - "orderer1.udn.vn"
+  - "orderer2.udn.vn"
+  - "orderer3.udn.vn"
   settings:
     ca:
       FABRIC_LOGGING_SPEC: DEBUG
