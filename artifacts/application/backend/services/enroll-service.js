@@ -50,7 +50,7 @@ const createNewCA = async (ccp, org = 'ca1.it.vku.udn.vn') => {
 }
 
 const getWallet = async (org = 'it.vku.udn.vn') => {
-    const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', org);
+    const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/fabrics', org);
     const wallet = await Wallets.newFileSystemWallet(walletPath);
     console.log(`Wallet path: ${walletPath}`);
     return wallet;
@@ -61,7 +61,7 @@ const getWalletCouchDB = async () => {
         const config = {
             url: "http://admin:adminpw@localhost:7009",
             // url: "https://admin:adminpw@172.27.127.58:7009",
-            databaseName: "wallets"
+            databaseName: "fabrics"
         }
         // const url =
         // const data
@@ -85,7 +85,6 @@ exports.enrollAdmin = async () => {
 
         // Check to see if we've already enrolled the admin user.
         const identity = await wallet.get('admin');
-        console.log(wallet.store);
         if (identity) {
             console.log('An identity for the admin user "admin" already exists in the wallet');
             return;

@@ -18,8 +18,8 @@ exports.test = async (req, res) => {
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
-        // const walletPath = path.join('/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
-        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
+        // const walletPath = path.join('/vars/profiles/vscode/fabrics', 'it.vku.udn.vn');
+        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/fabrics', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 

@@ -16,8 +16,8 @@ async function main() {
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
         // Create a new file system based wallet for managing identities.
-        // const walletPath = path.join('/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
-        const walletPath = path.join('../../profiles/vscode/wallets', 'it.vku.udn.vn');
+        // const walletPath = path.join('/vars/profiles/vscode/fabrics', 'it.vku.udn.vn');
+        const walletPath = path.join('../../profiles/vscode/fabrics', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 

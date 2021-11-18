@@ -19,7 +19,7 @@ sudo chown -R phoenix $PWD
 echo STARTING DOCKER......
 sudo service docker start
 sleep 4
-minifab cleanup -o it.vku.udn.vn
+minifab cleanup -o vku.udn.vn
 sudo rm -rf ./vars
 sleep 1
 
@@ -29,14 +29,14 @@ cat << "EOF"
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab netup -o it.vku.udn.vn -i 2.2 -l node -s couchdb -e true
+minifab netup -o vku.udn.vn -i 2.2 -l node -s couchdb -e true
 cat << "EOF"
 =============================================================================
 |                          INITIALIZE CHANNEL                               |
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab create,join -c vku
+minifab create,join -c udn
 minifab channelquery
 minifab channelsign,channelupdate
 cat << "EOF"

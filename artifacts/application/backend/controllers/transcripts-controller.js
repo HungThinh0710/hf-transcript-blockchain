@@ -5,11 +5,16 @@ const transcriptsService = require('../services/transcripts-service');
 
 exports.addNewTranscriptForStudent = async (req, res) => {
     // const { id } = _.get(req, 'userData', {});
-    const payload = _.get(req, 'body', {});
+    const body = _.get(req, 'body', {});
 
-    const studentID = payload.studentID;
-    const transcript = {
-        transcript: payload.student.transcript
+    const studentID = body.studentID;
+    const payload = {
+        studentID: body.student.studentID,
+        studentName: body.student.studentName,
+        unicode: body.student.unicode,
+        class: body.student.class,
+        docType: 'example_variablex_v1.1',
+        transcript: body.student.transcript
     };
 
     try {
@@ -47,7 +52,7 @@ exports.addNewTranscriptForStudent = async (req, res) => {
         //     transcripts
         // };
 
-        const result = await transcriptsService.addTranscript(studentID, transcript);
+        const result = await transcriptsService.addTranscript(studentID, payload);
         res.send(new ReturnResult(result, null, Constants.messages.CREATE_TASK_SUCCESS, null));
     } catch (err) {
         console.log(err)

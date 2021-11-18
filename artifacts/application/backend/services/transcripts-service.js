@@ -4,39 +4,30 @@ const sha256 = require('js-sha256');
 const Constant = require('../libs/Constants');
 const fs = require('fs');
 const path = require('path');
-const {BlockDecoder} = require("fabric-common");
+const { BlockDecoder } = require("fabric-common");
+const CCPandWallet = require('../fabrics/wallets');
+const GatewayAndNetwork = require('../fabrics/gateway-network');
 
 exports.addTranscript = async (studentID, transcript) => {
     try {
-        const ccpPath = path.resolve(__dirname, '../', '../','connection.json');
-        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
-
-        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
-        const wallet = await Wallets.newFileSystemWallet(walletPath);
-        console.log(`Wallet path: ${walletPath}`);
+       const { ccp , wallet } = await CCPandWallet.getCCPAndWallet();
 
         // Check to see if we've already enrolled the admin user.
-        const identity = await wallet.get('Admin');
-        if (! identity) {
+        const identity = await CCPandWallet.isIdentityExist(wallet, 'emailFIXEDTMP');
+        if (!identity) {
             console.log('Admin identity can not be found in the wallet');
             return;
         }
 
-        const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'Admin', discovery: { enabled: true, asLocalhost: false } });
-
-        // Get the network (channel) our contract is deployed to.
-        const network = await gateway.getNetwork('vku');
+        const { gateway, network } = await GatewayAndNetwork.createGatewayAndNetwork(ccp, wallet, 'emailFIXEDTMP', 'udn');
 
         // Get the contract from the network.
         const contract = network.getContract('transcript');
 
-
-        const transaction = contract.createTransaction('addNewStudentTranscripts');
+        const transaction = await contract.createTransaction('addNewTranscript');
         const result = await transaction.submit(studentID, JSON.stringify(transcript));
 
         const returnPayload = {
-            responseHash: result.toString('hex'),
             trxID: transaction.getTransactionId(),
             // transaction: transaction
         }
@@ -62,7 +53,7 @@ exports.beta = async (trxID) => {
         const ccpPath = path.resolve(__dirname, '../', '../','connection.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
-        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
+        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/fabrics', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
@@ -120,11 +111,10 @@ exports.betaPost = async (payload) => {
         const user = payload.email;
         const credentials = payload.credentials;
 
-
         const ccpPath = path.resolve(__dirname, '../', '../','connection.json');
         const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
 
-        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', 'it.vku.udn.vn');
+        const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/fabrics', 'it.vku.udn.vn');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 

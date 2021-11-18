@@ -50,7 +50,7 @@ echo "BACKUP CHAINCODE SOURCE TO ARTIFACTS"
 sudo cp -R $PWD/vars/chaincode/. $PWD/artifacts/chaincode/
 sleep 3.5
 #minifab down -o it.vku.udn.vn
-minifab cleanup -o it.vku.udn.vn
+minifab cleanup -o vku.udn.vn
 sudo rm -rf ./vars
 cat << "EOF"
 =============================================================================
@@ -58,14 +58,14 @@ cat << "EOF"
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab netup -o it.vku.udn.vn -i 2.2 -l node -s couchdb -e true
+minifab netup -o vku.udn.vn -i 2.2 -l node -s couchdb -e true
 cat << "EOF"
 =============================================================================
 |                          INITIALIZE CHANNEL                               |
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab create,join -c vku
+minifab create,join -c udn
 minifab channelquery
 minifab channelsign,channelupdate
 cat << "EOF"

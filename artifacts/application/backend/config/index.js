@@ -55,6 +55,11 @@ const config = convict({
   secret: {
     COMMUNICATE_API_KEY: "78e2f3e46fd40273b0abe50af1b9100cd6f4aab0eda33eb5bdcec55e003464d7", //SHA256
     COMMUNICATE_API_KEY_RAW: "hyperledger-fabric-sdk-nodejs-with-laravel-system: HungThinh0710.aka.Phoenix.5674937106", //RAW_TEXT
+  },
+
+  couchDBWallet: {
+    URL: "http://admin:adminpw@localhost:7009",
+    DB_NAME: "fabrics"
   }
 });
 

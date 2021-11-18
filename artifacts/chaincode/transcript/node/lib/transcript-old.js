@@ -16,8 +16,6 @@ class Transcript extends Contract {
             {
                 studentID: '17IT100',
                 studentName: 'Nguyễn Hưng Thịnh',
-                uniCode: 'VKU',
-                class: '17IT2',
                 transcripts: [{
                     semester: 1,
                     semesterText: 'Học kỳ 1 - 2017-2018',
@@ -48,8 +46,6 @@ class Transcript extends Contract {
             {
                 studentID: '17IT129',
                 studentName: 'Trần Quốc Bảo',
-                uniCode: 'VKU',
-                class: '17IT2',
                 transcripts: [{
                     semester: 1,
                     semesterText: 'Học kỳ 1 - 2017-2018',
@@ -80,38 +76,16 @@ class Transcript extends Contract {
         ];
         for (let i = 0; i < students.length; i++) {
             students[i].docType = 'example_variable';
-            await ctx.stub.putState( `${students[i].uniCode}_${students[i].studentID}`, Buffer.from(JSON.stringify(students[i])));
+            await ctx.stub.putState( students[i].studentID, Buffer.from(JSON.stringify(students[i])));
             console.log('Added <--> ', students[i]);
         }
         console.log('============= END : Initialize Ledger ===========');
         return "Initialize successfully";
     }
 
-    async _isTranscriptExist(ctx, studentID){
-        const transcriptAsBytes = await ctx.stub.getState(studentID);
-        if (!transcriptAsBytes || transcriptAsBytes.length === 0) {
-            return false;
-        }
-        return transcriptAsBytes.toString('utf-8');
+    async addNewStudentTranscripts(ctx, studentID, student){
+        return await ctx.stub.putState(studentID, Buffer.from(student));
     }
-
-    async addNewTranscript(ctx, studentID, student){
-        if(await this._isTranscriptExist(ctx, studentID) === false){
-            return await ctx.stub.putState(studentID, Buffer.from(student));
-        }
-        throw new Error(`Transcript for ${studentID} already exists.`);
-    }
-
-    async updateTranscript(ctx, studentID, payload){
-        if(await this._isTranscriptExist(ctx, studentID) !== false){
-            return await ctx.stub.putState(studentID, Buffer.from(payload));
-        }
-        throw new Error(`Transcript with student ID: "${studentID}" is not exists.`);
-    }
-
-    // async deleteTranscript(ctx, studentID){
-    //
-    // }
 
 
     async queryCar(ctx, carNumber) {
@@ -121,6 +95,21 @@ class Transcript extends Contract {
         }
         console.log(carAsBytes.toString());
         return carAsBytes.toString();
+    }
+
+    async createCar(ctx, carNumber, make, model, color, owner) {
+        console.info('============= START : Create Car ===========');
+
+        const car = {
+            color,
+            docType: 'car',
+            make,
+            model,
+            owner,
+        };
+
+        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
+        console.info('============= END : Create Car ===========');
     }
 
     async queryAllCars(ctx) {

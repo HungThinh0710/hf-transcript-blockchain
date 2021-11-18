@@ -9,28 +9,26 @@ const config = require('../config');
 const colorsLog = require('../config/colors');
 
 const setErrorReturn = async (errorCode, msg) => {
-    let result = {
+    return {
         message: msg,
         errorCode: errorCode,
         success: false,
         token: null,
-    }
-    return result;
+    };
 }
 
 const setSuccessReturn = async (msg, token) => {
-    const result = {
+    return {
         message: msg,
         errorCode: null,
         success: true,
         credentials: {
-            credentials:{
+            credentials: {
                 token: token,
                 type: 'Bearer'
             }
         }
-    }
-    return result;
+    };
 }
 
 const prepareArtifacts = async (org = 'ca1.it.vku.udn.vn', orgWallet = 'it.vku.udn.vn') => {
@@ -58,7 +56,7 @@ const createNewCA = async (ccp, org = 'ca1.it.vku.udn.vn') => {
 }
 
 const getWallet = async (org = 'it.vku.udn.vn') => {
-    const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/wallets', org);
+    const walletPath = path.join('/home/phoenix/hf-transcript-blockchain/vars/profiles/vscode/fabrics', org);
     const wallet = await Wallets.newFileSystemWallet(walletPath);
     console.log(`Wallet path: ${walletPath}`);
     return wallet;
@@ -69,7 +67,7 @@ const getWalletCouchDB = async () => {
         const config = {
             url: "http://admin:adminpw@localhost:7009",
             // url: "https://admin:adminpw@172.27.127.58:7009",
-            databaseName: "wallets"
+            databaseName: "fabrics"
         }
         // const url =
         // const data

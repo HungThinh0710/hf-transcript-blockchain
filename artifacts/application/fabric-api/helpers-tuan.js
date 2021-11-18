@@ -33,7 +33,7 @@ const getCaUrl = async (org, ccp) => {
 }
 
 const getWalletPath = async (org) => {
-    let walletPath = path.join(process.cwd(), '../../profiles/vscode/wallets/' + org + '.teco.com');
+    let walletPath = path.join(process.cwd(), '../../profiles/vscode/fabrics/' + org + '.teco.com');
     return walletPath;
 }
 
