@@ -8,24 +8,24 @@ const { BlockDecoder } = require("fabric-common");
 const CCPandWallet = require('../fabrics/wallets');
 const GatewayAndNetwork = require('../fabrics/gateway-network');
 
-exports.addTranscript = async (studentID, transcript) => {
+exports.addTranscript = async (email, studentID, payload) => {
     try {
        const { ccp , wallet } = await CCPandWallet.getCCPAndWallet();
 
         // Check to see if we've already enrolled the admin user.
-        const identity = await CCPandWallet.isIdentityExist(wallet, 'emailFIXEDTMP');
+        const identity = await wallet.get(email);
         if (!identity) {
-            console.log('Admin identity can not be found in the wallet');
+            console.log(`${email} identity can not be found in the wallet`);
             return;
         }
 
-        const { gateway, network } = await GatewayAndNetwork.createGatewayAndNetwork(ccp, wallet, 'emailFIXEDTMP', 'udn');
+        const { gateway, network } = await GatewayAndNetwork.createGatewayAndNetwork(ccp, wallet, email, 'udn');
 
         // Get the contract from the network.
         const contract = network.getContract('transcript');
 
         const transaction = await contract.createTransaction('addNewTranscript');
-        const result = await transaction.submit(studentID, JSON.stringify(transcript));
+        const result = await transaction.submit(studentID, JSON.stringify(payload));
 
         const returnPayload = {
             trxID: transaction.getTransactionId(),

@@ -6,53 +6,18 @@ const transcriptsService = require('../services/transcripts-service');
 exports.addNewTranscriptForStudent = async (req, res) => {
     // const { id } = _.get(req, 'userData', {});
     const body = _.get(req, 'body', {});
-
-    const studentID = body.studentID;
-    const payload = {
-        studentID: body.student.studentID,
-        studentName: body.student.studentName,
-        unicode: body.student.unicode,
-        class: body.student.class,
-        docType: 'example_variablex_v1.1',
-        transcript: body.student.transcript
-    };
-
     try {
-        // // Submit the specified transaction.
-        // let transcripts = [{
-        //     semester: 1,
-        //     semesterText: 'Học kỳ 1 - 2017-2018',
-        //     year: 2017,
-        //     universityCode: "VKU",
-        //     subjects: [
-        //         {
-        //             sbjName: 'Lập trình hướng đối tượng và Java Cơ Bản',
-        //             sbjCode: 'JAVA_17_1',
-        //             credit: 3,
-        //             attendanceScore: 7.0,
-        //             exerciseScore: 2.5,
-        //             middleExamScore: 5.1,
-        //             FinalExamSCore: 4.0
-        //         },
-        //         {
-        //             sbjName: 'Đại số ',
-        //             sbjCode: 'DAISO_17_1',
-        //             credit: 3,
-        //             attendanceScore: 2.0,
-        //             exerciseScore: NaN,
-        //             middleExamScore: 9.9,
-        //             FinalExamSCore: 6.5
-        //         },
-        //     ]
-        // }];
-        // let student = {
-        //     studentID: '17IT205',
-        //     studentName: 'lee sin',
-        //     docType: 'example_variablex_v1.1',
-        //     transcripts
-        // };
-
-        const result = await transcriptsService.addTranscript(studentID, payload);
+        const email = req.userData.email;
+        const studentID = body.studentID;
+        const payload = {
+            studentID: body.student.studentID,
+            studentName: body.student.studentName,
+            uniCode: body.student.uniCode,
+            class: body.student.class,
+            docType: 'example_variablex_v1.1',
+            transcript: body.student.transcript
+        };
+        const result = await transcriptsService.addTranscript(email, studentID, payload);
         res.send(new ReturnResult(result, null, Constants.messages.CREATE_TASK_SUCCESS, null));
     } catch (err) {
         console.log(err)
