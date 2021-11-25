@@ -9,7 +9,7 @@ const { parseErrorChaincodeToJSON } = require('../libs/ParseErrorChaincode');
 const { handleSuccessReturn, handleErrorReturn } = require('../libs/ServiceControllerReturn');
 const Constants = require('../libs/Constants');
 
-exports.addTranscript = async (email, studentID, payload) => {
+exports.addTranscript = async (email, payload) => {
     try {
        const { ccp , wallet } = await CCPandWallet.getCCPAndWallet();
 
@@ -27,7 +27,7 @@ exports.addTranscript = async (email, studentID, payload) => {
         const contract = network.getContract('transcript');
 
         const transaction = await contract.createTransaction('addNewTranscript');
-        const result = await transaction.submit(studentID, JSON.stringify(payload));
+        const result = await transaction.submit(payload.studentID, JSON.stringify(payload));
 
         const returnPayload = {
             trxID: transaction.getTransactionId(),

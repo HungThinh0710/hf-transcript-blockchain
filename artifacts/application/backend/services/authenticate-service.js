@@ -17,6 +17,9 @@ const setErrorReturn = async (errorCode, msg) => {
 }
 
 const setSuccessReturn = async (msg, token) => {
+    const currentDate = new Date();
+    const expires_at = new Date(currentDate);
+
     return {
         message: msg,
         errorCode: null,
@@ -24,7 +27,8 @@ const setSuccessReturn = async (msg, token) => {
         credentials: {
             credentials: {
                 token: token,
-                type: 'Bearer'
+                type: 'Bearer',
+                expires_at: expires_at.setHours(expires_at.getHours() + 8765)
             }
         }
     };
@@ -80,7 +84,7 @@ exports.login = async (payload) => {
         const token = jwt.sign({
             email: email,
             org: org,
-        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '1h'});
+        }, config.get('jwt.TOKEN_KEY'), { expiresIn: '8765h'});
 
         console.log(colorsLog.FgGreen,`[LOGIN SUCCESSFULLY]: Logged successfully with ${email} identity.`);
         return setSuccessReturn(Constant.messages.REGISTER_USER_SUCCESS, token)

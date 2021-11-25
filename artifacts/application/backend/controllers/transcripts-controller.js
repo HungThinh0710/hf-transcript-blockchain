@@ -7,17 +7,15 @@ exports.addNewTranscriptForStudent = async (req, res) => {
     const body = _.get(req, 'body', {});
     try {
         const email = req.userData.email;
-        const studentID = body.studentID;
         const payload = {
             studentID: body.student.studentID,
             studentName: body.student.studentName,
             uniCode: body.student.uniCode,
             class: body.student.class,
-            docType: 'example_variablex_v1.1',
             transcript: body.student.transcript
         };
 
-        const result = await transcriptsService.addTranscript(email, studentID, payload);
+        const result = await transcriptsService.addTranscript(email, payload);
 
         if(result.success)
             return res.send(new ReturnResult(result.data, Constants.messages.CREATE_NEW_TRANSCRIPT_SUCCESS, null, 0));
