@@ -16,10 +16,11 @@ cat << "EOF"
 ===============================================================================================================
 EOF
 sudo chown -R phoenix $PWD
+chmod +x ./minifab
 echo STARTING DOCKER......
 sudo service docker start
 sleep 4
-minifab cleanup -o vku.udn.vn
+./minifab cleanup -o vku.udn.vn
 sudo rm -rf ./vars
 sleep 1
 
@@ -29,23 +30,23 @@ cat << "EOF"
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab netup -o vku.udn.vn -i 2.2 -l node -s couchdb -e true
+./minifab netup -o vku.udn.vn -i 2.2 -l node -s couchdb -e true
 cat << "EOF"
 =============================================================================
 |                          INITIALIZE CHANNEL                               |
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab create,join -c udn
-minifab channelquery
-minifab channelsign,channelupdate
+./minifab create,join -c udn
+./minifab channelquery
+./minifab channelsign,channelupdate
 cat << "EOF"
 =============================================================================
 |                   ANCHOR UPDATE & GENERATE PROFILE                        |
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab anchorupdate,profilegen
+./minifab anchorupdate,profilegen
 cat << "EOF"
 =============================================================================
 |                 CLEAR  EXIST CHAINCODE AND COPY NEW ONE                   |
@@ -60,7 +61,7 @@ cat << "EOF"
 |                                                @ Hưng Thịnh - Phoenix     |
 =============================================================================
 EOF
-minifab ccup -n transcript -l node -v 1.0 -d true -p '"initLedger"'
+./minifab ccup -n transcript -l node -v 1.0 -d true -p '"initLedger"'
 
 cat << "EOF"
 =============================================================================
