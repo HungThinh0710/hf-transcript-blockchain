@@ -36,7 +36,6 @@ const setSuccessReturn = async (msg, token) => {
 
 
 const verifyUserWalletWithCouchDBWallet = async (couchDBWalletIdentity, userWallet) => {
-    // console.log(userWallet.credentials.certificate.toString().trim());
     const userCertificate = userWallet.credentials.certificate.toString().trim();
     const userPrivKey = userWallet.credentials.privateKey.toString().trim();
     const userWalletKey = userWallet.type.toString().trim();
@@ -48,6 +47,14 @@ const verifyUserWalletWithCouchDBWallet = async (couchDBWalletIdentity, userWall
     const isMatchedCertificate = userCertificate.localeCompare(couchDBWalletCertificate);
     const isMatchedPrivKey = userPrivKey.localeCompare(couchDBWalletPrivKey);
     const isMatchedType = userWalletKey.localeCompare(couchDBWalletType);
+
+    console.log(couchDBWalletCertificate);
+    console.log(couchDBWalletPrivKey);
+    console.log(couchDBWalletType);
+
+    console.log(userCertificate);
+    console.log(userPrivKey);
+    console.log(userWalletKey);
 
     console.log(colorsLog.FgCyan,"[Verify User's Wallet]");
     console.log(isMatchedCertificate === 0 ? colorsLog.FgGreen : colorsLog.FgRed, `[STEP 1 - Certificate]: ${isMatchedCertificate === 0 ? 'PASSED' : 'FAILED'}`);

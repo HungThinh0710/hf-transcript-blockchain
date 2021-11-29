@@ -5,10 +5,7 @@ const transcriptsController = require('../../controllers/transcripts-controller'
 const authGuardMiddleware = require('../../middleware/auth-guard');
 const validatorMiddleware = require('../../middleware/validator');
 
-router.get('/beta/:trxid', authGuardMiddleware, transcriptsController.betaFeature);
-router.post('/beta', authGuardMiddleware, transcriptsController.betaPost);
-
-router.post('/new-transcript',
+router.post('/new',
     authGuardMiddleware,
     validatorMiddleware(Schemas.transcript.newTranscript, 'body'),
     transcriptsController.addNewTranscriptForStudent
