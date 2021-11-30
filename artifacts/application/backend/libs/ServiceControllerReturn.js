@@ -29,6 +29,9 @@ exports.handleErrorReturn = (error) => {
                 return errorReturnObject(error.message, 0);
             case 'TRANSCRIPT_ALREADY_EXIST':
                 return errorReturnObject(error.message, 1);
+            case 'TRANSCRIPT_HISTORY_NOT_EXIST':
+                return errorReturnObject(error.message, 2);
+
         }
     }
     return errorReturnObject('Unknown message', 500);

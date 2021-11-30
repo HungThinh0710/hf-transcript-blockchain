@@ -11,6 +11,25 @@ router.post('/new',
     transcriptsController.addNewTranscriptForStudent
 );
 
+router.post('/detail',
+    authGuardMiddleware,
+    validatorMiddleware(Schemas.transcript.detail, 'body'),
+    transcriptsController.showDetailTranscript
+);
+
+router.post('/history',
+    authGuardMiddleware,
+    validatorMiddleware(Schemas.transcript.history, 'body'),
+    transcriptsController.historyTranscript
+)
+
+router.post('/update',
+    authGuardMiddleware,
+    validatorMiddleware(Schemas.transcript.updateTranscript, 'body'),
+    transcriptsController.updateTranscript
+)
+
+
 // New Routes
 // router.patch('/update-transcript', authGuardMiddleware, transcriptsController.betaPost);
 // router.post('/delete-transcript', authGuardMiddleware, transcriptsController.betaPost);

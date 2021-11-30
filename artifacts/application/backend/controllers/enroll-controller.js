@@ -23,7 +23,7 @@ exports.registerUser = async (req, res) => {
     try {
         const result = await enrollService.registerUser(body.email.toString());
         if(result === false || !result.success)
-            return res.send(new ReturnResult(null, null, null, result.message));
+            return res.send(new ReturnResult(null, null, result.message));
         return res.send(new ReturnResult(result.identity, Constants.messages.REGISTER_USER_SUCCESS, null));
     } catch (err) {
         console.log(err)

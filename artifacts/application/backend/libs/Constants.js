@@ -30,5 +30,9 @@ module.exports = Object.freeze({
         ENROLL_ADMIN_SUCCESS: 'Enroll admin successfully (Alpha API)',
         REGISTER_USER_SUCCESS: 'Register user successfully',
         CREATE_NEW_TRANSCRIPT_SUCCESS: "The transcript has been created.",
+        // TRANSCRIPT
+        GET_TRANSCRIPT_SUCCESS: 'Get transcript successfully.',
+        GET_TRANSCRIPT_HISTORY_SUCCESS: 'Get transcript history successfully.',
+        UPDATE_TRANSCRIPT_HISTORY_SUCCESS: 'Update transcript successfully.',
     }
 });

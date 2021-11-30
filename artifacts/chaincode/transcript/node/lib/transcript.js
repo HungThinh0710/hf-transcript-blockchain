@@ -87,6 +87,13 @@ class Transcript extends Contract {
         return "Initialize successfully";
     }
 
+    /**
+     *
+     * @param ctx
+     * @param studentID
+     * @returns {Promise<string|boolean>}
+     * @private
+     */
     async _isTranscriptExist(ctx, studentID){
         const transcriptAsBytes = await ctx.stub.getState(studentID);
         if (!transcriptAsBytes || transcriptAsBytes.length === 0) {
@@ -95,26 +102,78 @@ class Transcript extends Contract {
         return transcriptAsBytes.toString('utf-8');
     }
 
+    /**
+     *
+     * @param ctx
+     * @param studentID
+     * @param student
+     * @returns {Promise<*>}
+     */
     async addNewTranscript(ctx, studentID, student){
         if(await this._isTranscriptExist(ctx, studentID) === false){
             return await ctx.stub.putState(studentID, Buffer.from(student));
         }
         // throw new Error(`Transcript for ${studentID} already exists.`);
-        throw TranscriptError('TRANSCRIPT_NOT_EXIST', `Transcript for ${studentID} already exists.`);
+        throw TranscriptError('TRANSCRIPT_ALREADY_EXIST', `Transcript for ${studentID} already exists.`);
     }
 
-    async updateTranscript(ctx, studentID, payload){
-        if(await this._isTranscriptExist(ctx, studentID) !== false){
-            return await ctx.stub.putState(studentID, Buffer.from(payload));
+    /**
+     *
+     * @param ctx
+     * @param studentID
+     * @param newTranscript
+     * @returns {Promise<*>}
+     */
+    async updateTranscript(ctx, studentID, newTranscript){
+        const studentRaw = await this._isTranscriptExist(ctx, studentID);
+        if(studentRaw !== false){
+            return await ctx.stub.putState(studentID, Buffer.from(newTranscript));
         }
-        throw new Error(`Transcript with student ID: "${studentID}" is not exists.`);
+        throw TranscriptError('TRANSCRIPT_NOT_EXISTTRANSCRIPT_NOT_EXIST', `Transcript for ${studentID} is not exists.`);
     }
+
+    /**
+     *
+     * @param ctx
+     * @param studentID
+     * @returns {Promise<*[]>}
+     */
+    async historyUpdateTranscript(ctx, studentID){
+        // TODO: need check is studentID exist or not
+        const promiseOfIterator = ctx.stub.getHistoryForKey(studentID);
+        const results = [];
+        for await (const keyMod of promiseOfIterator) {
+            const resp = {
+                timestamp: keyMod.timestamp,
+                txid: keyMod.tx_id
+            }
+            if (keyMod.is_delete) {
+                resp.payload = 'TRANSCRIPT DELETED';
+            } else {
+                resp.payload = JSON.parse(keyMod.value.toString('utf8'));
+            }
+            results.push(resp);
+        }
+        return results;
+    }
+
 
     // async deleteTranscript(ctx, studentID){
     //
     // }
 
+/*
+ =====================================================================
+                               OTHER
 
+ =====================================================================
+ */
+    /**
+     *
+     * @param ctx
+     * @param carNumber
+     * @returns {Promise<string>}
+     */
     async queryCar(ctx, carNumber) {
         const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
         if (!carAsBytes || carAsBytes.length === 0) {
