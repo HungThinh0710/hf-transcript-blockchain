@@ -20,6 +20,9 @@ chmod +x ./minifab
 echo STARTING DOCKER......
 sudo service docker start
 sleep 4
+sudo docker container prune -f
+sudo docker volume prune -f
+sudo docker image prune -f
 cat << "EOF"
 =============================================================================
 |                   BACKUP SOURCE (Application & Chaincode                  |

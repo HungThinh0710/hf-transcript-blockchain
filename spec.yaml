@@ -19,5 +19,5 @@ fabric:
       FABRIC_LOGGING_SPEC: DEBUG
     orderer:
       FABRIC_LOGGING_SPEC: DEBUG
-  #endpoint_address: "127.0.0.1"
+  endpoint_address: 104.46.228.10
   netname: "UDNNetwork"
