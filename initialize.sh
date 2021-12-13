@@ -27,7 +27,20 @@ sleep 10
 ./minifab cleanup -o vku.udn.vn
 sudo rm -rf ./vars
 sleep 1
-
+cat << "EOF"
+=============================================================================
+|                             CLEARING DOCKER                               |
+|                                                @ Hưng Thịnh - Phoenix     |
+=============================================================================
+EOF
+echo "CLEAR CONTAINER..."
+sudo docker container prune -f
+echo "CLEAR VOLUME..."
+sudo docker volume prune -f
+echo "CLEAR IMAGE..."
+sudo docker image prune -f
+echo "DELETE UDNNetwork..."
+sudo docker network rm UDNNetwork
 cat << "EOF"
 =============================================================================
 |                          INITIALIZE NETWORK                               |
