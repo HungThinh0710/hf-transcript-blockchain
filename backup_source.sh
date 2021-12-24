@@ -16,7 +16,7 @@ cat << "EOF"
 |                                                                                     @ Hưng Thịnh - Phoenix         |
 ======================================================================================================================
 EOF
-sudo chown -R phoenix $PWD
+#sudo chown -R phoenix $PWD
 #Clear exist files & folders in artifacts
 echo "[STEP 1]: CLEAR APPLICATION SOURCE FROM ARTIFACTS..."
 sudo rm -rf $PWD/artifacts/application

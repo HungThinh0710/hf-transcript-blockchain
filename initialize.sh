@@ -15,7 +15,7 @@ cat << "EOF"
 |                                                                                  @ Hưng Thịnh - Phoenix     |
 ===============================================================================================================
 EOF
-sudo chown -R phoenix $PWD
+#sudo chown -R phoenix $PWD
 chmod +x ./minifab
 echo STARTING DOCKER......
 sudo service docker start
