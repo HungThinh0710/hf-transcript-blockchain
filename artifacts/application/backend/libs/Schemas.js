@@ -26,7 +26,14 @@ module.exports = {
                 transcript: Joi.array()
             }).required(),
         })
-
     },
+    enroll: {
+        enrollAdmin: Joi.object().keys({
+            mspid: Joi.string().required(),
+            orgCode: Joi.string().required(),
+            email: Joi.string().required(),
+
+        }),
+    }
 };
 

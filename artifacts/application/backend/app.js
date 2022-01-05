@@ -26,7 +26,7 @@ app.use('/', require('./routes'));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     return res.status(404).send(
-        new ReturnResult('Error', null, null, 'No route was found matching the URL and request method')
+        new ReturnResult(null, null, 'No route was found matching the URL and request method')
         // res.status(404).send('ROUTE NOT FOUND')
     );
 });

@@ -27,36 +27,41 @@ const createNewCA = async (ccp, org) => {
     return new FabricCAServices(caInfo.url, {trustedRoots: caTLSCACerts, verify: false}, caInfo.caName);
 }
 
-exports.enrollAdmin = async () => {
+exports.enrollAdmin = async (orgInfo) => {
     try {
         const { ccp, wallet } = await FabricWalletsHelper.getCCPAndWallet();
 
         // Check to see if we've already enrolled the admin user.
-        const identity = await wallet.get('admin');
+        const adminUser = orgInfo.email;
+
+        const identity = await wallet.get(adminUser);
         if (identity) {
-            console.log('An identity for the admin user "admin" already exists in the wallet');
-            return;
+            console.log('An identity for the admin user "admin" already exists in the wallet.');
+            return setErrorReturn(1, `An identity for the admin user "admin" already exists in the wallet.`);
         }
 
         const org = 'ca1.vku.udn.vn';//TMP
+        // const org = orgInfo.mspid; // mspid must same name with CA
         const ca = await createNewCA(ccp, org);
 
         // Enroll the admin user, and import the new identity into the wallet.
+        // const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' });
         const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' });
         const x509Identity = {
             credentials: {
                 certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
             },
-            mspId: 'Org1MSP',
+            mspId: orgInfo.mspid,
             type: 'X.509',
         };
-        await wallet.put('admin', x509Identity);
+        await wallet.put(adminUser, x509Identity);
         console.log('Successfully enrolled admin user "admin" and imported it into the wallet');
-        return true;
+        return setSuccessReturn('Enroll Admin successfully', x509Identity)
     } catch (error) {
         console.error(`Failed to enroll admin user "admin": ${error}`);
-        return false;
+        console.log(error);
+        return setErrorReturn(100, '[Fabric API]: '+ error.message);
     }
 };
 

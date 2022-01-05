@@ -5,10 +5,18 @@ const enrollService = require('../services/enroll-service');
 
 exports.enrollAdmin = async (req, res) => {
     // const { id } = _.get(req, 'userData', {});
-    // const task = _.get(req, 'body', {});
+    const body = _.get(req, 'body', {});
     try {
-        const result = await enrollService.enrollAdmin();
-        res.send(new ReturnResult(null, Constants.messages.ENROLL_ADMIN_SUCCESS, null));
+        const orgInfo = {
+            mspid: body.mspid,
+            orgCode: body.orgCode,
+            email: body.email
+        };
+
+        const result = await enrollService.enrollAdmin(orgInfo);
+        if(result === false || !result.success)
+            return res.send(new ReturnResult(null, null, result.message));
+        return res.send(new ReturnResult(result.identity, Constants.messages.ENROLL_ADMIN_SUCCESS, null));
     } catch (err) {
         console.log(err)
         res.status(400).send(new ReturnResult(null, null, err.message, true));
