@@ -2,12 +2,15 @@ fabric:
   cas:
   - "ca1.vku.udn.vn"
   - "ca1.dut.udn.vn"
+  - "ca1.due.udn.vn"
+  - "ca1.ufl.udn.vn"
   - "ca1.ued.udn.vn"
   peers:
   - "peer1.vku.udn.vn"
   - "peer1.dut.udn.vn"
+  - "peer1.due.udn.vn"
+  - "peer1.ufl.udn.vn"
   - "peer1.ued.udn.vn"
-#  - "peer2.ba.vku.udn.vn"
   orderers:
   - "orderer1.udn.vn"
   - "orderer2.udn.vn"
