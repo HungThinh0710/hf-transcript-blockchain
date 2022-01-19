@@ -18,7 +18,11 @@ exports.addTranscript = async (email, payload) => {
 
         if (!identity) {
             console.log(`${email} identity can not be found in the wallet`);
-            return;
+            const error = {
+                type: "USER_NOT_EXISTS",
+                message: "User is not exists"
+            }
+            return handleErrorReturn(error);
         }
 
         const { gateway, network } = await createGatewayAndNetwork(ccp, wallet, email, 'udn');
@@ -59,7 +63,11 @@ exports.getDetailTranscriptByTrxID = async (email, trxID) => {
 
         if (!identity) {
             console.log(`${email} identity can not be found in the wallet`);
-            return;
+            const error = {
+                type: "USER_NOT_EXISTS",
+                message: "User is not exists"
+            }
+            return handleErrorReturn(error);
         }
 
         const { gateway, network } = await createGatewayAndNetwork(ccp, wallet, email, 'udn');
@@ -77,7 +85,6 @@ exports.getDetailTranscriptByTrxID = async (email, trxID) => {
     }
 }
 
-
 exports.getHistoryTransaction = async (email, studentID) => {
     try{
         const { ccp , wallet } = await CCPandWallet.getCCPAndWallet();
@@ -87,16 +94,28 @@ exports.getHistoryTransaction = async (email, studentID) => {
 
         if (!identity) {
             console.log(`${email} identity can not be found in the wallet`);
-            return;
+            const error = {
+                type: "USER_NOT_EXISTS",
+                message: "User is not exists"
+            }
+            return handleErrorReturn(error);        
         }
 
         const { gateway, network } = await createGatewayAndNetwork(ccp, wallet, email, 'udn');
         // Get the contract from the network.
         const contract = network.getContract('transcript');
-
+        console.log("[HF-CONSOLE] Prepare to evaluate Transaction");
         const result = await contract.evaluateTransaction('historyUpdateTranscript', studentID);
-        const payload = JSON.parse(result.toString());
+        console.log("[HF-CONSOLE] 109");
+        console.log(result);
+        console.log("[HF-CONSOLE] 111");
+        const payload = JSON.parse(result); // const payload = JSON.parse(result.toString());
+        // const txIds = [];
         if(payload.length > 0){
+            // for await (const data of payload) {
+            //     txIds.push(data.txid);
+            // }
+            // // console.log(txIds);
             return handleSuccessReturn(payload, 'Get transcript history successfully');
         }
 
@@ -107,6 +126,8 @@ exports.getHistoryTransaction = async (email, studentID) => {
         return handleErrorReturn(error);
 
     } catch (error) {
+        console.log("[HF-CONSOLE] ERROR");
+        console.log(error);
         console.error(`Failed to get history transaction": ${error}`);
         return handleErrorReturn(parseErrorChaincodeToJSON(error.responses[0].response.message));
     }
@@ -120,7 +141,11 @@ exports.updateTranscript = async(email, student) => {
         const identity = await wallet.get(email);
         if (!identity) {
             console.log(`${email} identity can not be found in the wallet`);
-            return;
+            const error = {
+                type: "USER_NOT_EXISTS",
+                message: "User is not exists"
+            }
+            return handleErrorReturn(error);
         }
         // Get the contract from the network.
 
@@ -135,6 +160,38 @@ exports.updateTranscript = async(email, student) => {
 
     } catch(error){
         console.error(`Failed to update a transaction": ${error}`);
+        return handleErrorReturn(parseErrorChaincodeToJSON(error.responses[0].response.message));
+    }
+}
+
+
+exports.deleteTranscript = async(email, studentID) => {
+    try {
+        const { ccp , wallet } = await CCPandWallet.getCCPAndWallet();
+
+        // Check to see if we've already enrolled the admin user.
+        const identity = await wallet.get(email);
+        if (!identity) {
+            console.log(`${email} identity can not be found in the wallet`);
+            const error = {
+                type: "USER_NOT_EXISTS",
+                message: "User is not exists"
+            }
+            return handleErrorReturn(error);
+        }
+        // Get the contract from the network.
+
+        const { gateway, network } = await createGatewayAndNetwork(ccp, wallet, email, 'udn');
+        // Get the contract from the network.
+        const contract = network.getContract('transcript');
+
+        const transaction = await contract.createTransaction('deleteTranscript');
+        await transaction.submit(studentID);
+
+        return handleSuccessReturn({trxID: transaction.getTransactionId()}, 'Transcript deleted successfully');
+
+    } catch(error){
+        console.error(`Failed to delete a transaction": ${error}`);
         return handleErrorReturn(parseErrorChaincodeToJSON(error.responses[0].response.message));
     }
 }

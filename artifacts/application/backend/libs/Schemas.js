@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { join } = require('lodash');
 
 module.exports = {
     transcript: {
@@ -25,6 +26,9 @@ module.exports = {
                 class: Joi.string().required(),
                 transcript: Joi.array()
             }).required(),
+        }),
+        deleteTranscript: Joi.object().keys({
+            studentID: Joi.string().required()
         })
     },
     enroll: {

@@ -82,6 +82,21 @@ exports.updateTranscript = async (req, res) => {
     }
 }
 
+exports.deleteTranscript = async (req, res) => {
+    const body = _.get(req, 'body', {});
+    try {
+        const email = req.userData.email;
+        const studentID  = body.studentID;
+        const result = await transcriptsService.deleteTranscript(email, studentID);
+        if(result.success)
+            return res.send(new ReturnResult(result.data, Constants.messages.DELETE_TRANSCRIPT_SUCCESS, null, 0));
+        return res.send(new ReturnResult(null, null, `FABRIC API: ${result.message}`, 1));
+    } catch (err) {
+        console.log(err)
+        res.status(400).send(new ReturnResult(null, null, err.message));
+    }
+}
+
 
 
 

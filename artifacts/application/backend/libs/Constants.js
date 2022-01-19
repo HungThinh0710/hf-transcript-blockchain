@@ -34,5 +34,6 @@ module.exports = Object.freeze({
         GET_TRANSCRIPT_SUCCESS: 'Get transcript successfully.',
         GET_TRANSCRIPT_HISTORY_SUCCESS: 'Get transcript history successfully.',
         UPDATE_TRANSCRIPT_HISTORY_SUCCESS: 'Update transcript successfully.',
+        DELETE_TRANSCRIPT_SUCCESS: 'Delete transcript successfully.',
     }
 });

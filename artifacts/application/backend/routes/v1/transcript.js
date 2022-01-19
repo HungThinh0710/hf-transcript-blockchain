@@ -29,6 +29,14 @@ router.post('/update',
     transcriptsController.updateTranscript
 )
 
+router.post('/delete',
+    authGuardMiddleware,
+    validatorMiddleware(Schemas.transcript.deleteTranscript, 'body'),
+    transcriptsController.deleteTranscript
+)
+
+
+
 
 // New Routes
 // router.patch('/update-transcript', authGuardMiddleware, transcriptsController.betaPost);

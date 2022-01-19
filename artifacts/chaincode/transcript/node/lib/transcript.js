@@ -141,26 +141,38 @@ class Transcript extends Contract {
     async historyUpdateTranscript(ctx, studentID){
         // TODO: need check is studentID exist or not
         const promiseOfIterator = ctx.stub.getHistoryForKey(studentID);
+        console.log("passed checking");
         const results = [];
         for await (const keyMod of promiseOfIterator) {
             const resp = {
                 timestamp: keyMod.timestamp,
-                txid: keyMod.tx_id
+                txid: keyMod.txId,
+                // raw: keyMod
             }
             if (keyMod.is_delete) {
                 resp.payload = 'TRANSCRIPT DELETED';
             } else {
                 resp.payload = JSON.parse(keyMod.value.toString('utf8'));
             }
+            // results.push(resp);
             results.push(resp);
         }
         return results;
     }
 
 
-    // async deleteTranscript(ctx, studentID){
-    //
-    // }
+    async deleteTranscript(ctx, studentID){
+        const studentRaw = await this._isTranscriptExist(ctx, studentID);
+        if(studentRaw !== false){
+            return await ctx.stub.deleteState(studentID);
+        }
+        throw TranscriptError('TRANSCRIPT_NOT_EXIST', `Transcript for ${studentID} is not exists.`);
+    }
+
+    async getCreatorTransaction(ctx){
+        const mspid = ctx.clientIdentity.getMSPID();
+        return mspid;
+    }
 
 /*
  =====================================================================
