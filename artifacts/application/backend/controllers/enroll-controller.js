@@ -29,7 +29,11 @@ exports.registerUser = async (req, res) => {
     // const { id } = _.get(req, 'userData', {});
     const body = _.get(req, 'body', {});
     try {
-        const result = await enrollService.registerUser(body.email.toString());
+        const orgInfo = {
+            email: body.email.toString(),
+            mspid: body.mspid
+        }
+        const result = await enrollService.registerUser(orgInfo);
         if(result === false || !result.success)
             return res.send(new ReturnResult(null, null, result.message));
         return res.send(new ReturnResult(result.identity, Constants.messages.REGISTER_USER_SUCCESS, null));

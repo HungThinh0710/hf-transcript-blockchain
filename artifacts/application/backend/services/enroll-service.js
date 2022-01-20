@@ -37,11 +37,11 @@ exports.enrollAdmin = async (orgInfo) => {
         const identity = await wallet.get(adminUser);
         if (identity) {
             console.log('An identity for the admin user "admin" already exists in the wallet.');
-            return setErrorReturn(1, `An identity for the admin user "admin" already exists in the wallet.`);
+            return setErrorReturn(1, `An identity for the admin user ${adminUser} already exists in the wallet.`);
         }
 
-        const org = 'ca1.vku.udn.vn';//TMP
-        // const org = orgInfo.mspid; // mspid must same name with CA
+        // const org = 'ca1.vku.udn.vn';//TMP
+        const org = `ca1.${orgInfo.mspid}`; // mspid must same name with CA
         const ca = await createNewCA(ccp, org);
 
         // Enroll the admin user, and import the new identity into the wallet.
@@ -65,17 +65,18 @@ exports.enrollAdmin = async (orgInfo) => {
     }
 };
 
-exports.registerUser = async (email) => {
+exports.registerUser = async (orgInfo) => {
     try {
-        const requireCA = { caOrg: 'vku.udn.vn' };
+        const caOrg = `ca1.${orgInfo.mspid}`;
+        const requireCA = { caOrg: caOrg };
 
         const { ccp, wallet } = await FabricWalletsHelper.getCCPAndWallet(requireCA);
         // const userIdentity = await wallet.get('appUser');
         const userIdentity = await wallet.get(email);
 
         if (userIdentity) {
-            console.log(`An identity for the user "${email}" already exists in the wallet`);
-            return setErrorReturn(1, `Account ${email} already exist in the wallet`);
+            console.log(`An identity for the user "${orgInfo.email}" already exists in the wallet`);
+            return setErrorReturn(1, `Account ${orgInfo.email} already exist in the wallet`);
         }
 
         // Check to see if we've already enrolled the admin user.
@@ -88,23 +89,24 @@ exports.registerUser = async (email) => {
         const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
         const adminUser = await provider.getUserContext(adminIdentity, 'admin');
 
-        const org = 'ca1.vku.udn.vn';//TMP
-        const ca = await createNewCA(ccp, org);
+        // const org = 'ca1.vku.udn.vn';//TMP
+        const ca = await createNewCA(ccp, caOrg);
 
         // Register the user, enroll the user, and import the new identity into the wallet.
         const secret = await ca.register({
             // affiliation: 'it.vku.udn.vn',
             // enrollmentID: 'appUser',
-            enrollmentID: email,
+            enrollmentID: orgInfo.email,
             role: 'client'
         }, adminUser);
 
         const enrollment = await ca.enroll({
             // enrollmentID: 'appUser',
-            enrollmentID: email,
+            enrollmentID: orgInfo.email,
             enrollmentSecret: secret
         });
-        const mspId = await FabricWalletsHelper.getMspId(ccp,'vku.udn.vn');
+        // const mspId = await FabricWalletsHelper.getMspId(ccp,'vku.udn.vn');
+        const mspId = await FabricWalletsHelper.getMspId(ccp, orgInfo.mspid);
         const x509Identity = {
             credentials: {
                 certificate: enrollment.certificate,
@@ -116,10 +118,10 @@ exports.registerUser = async (email) => {
         };
         // await wallet.put('appUser', x509Identity);
         await wallet.put(email, x509Identity);
-        console.log(`Successfully registered and enrolled admin user ${email} and imported it into the wallet`);
+        console.log(`Successfully registered and enrolled user ${email} and imported it into the wallet`);
         return setSuccessReturn(Constant.messages.REGISTER_USER_SUCCESS, x509Identity)
     } catch (error) {
-        console.error(`Failed to enroll admin user "admin": ${error}`);
+        console.error(`Failed to enroll user ": ${error}`);
         console.log(error);
         // process.exit(1);
         return setErrorReturn(100, '[Fabric API]: '+ error.message);

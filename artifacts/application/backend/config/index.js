@@ -58,7 +58,7 @@ const config = convict({
   },
 
   couchDBWallet: {
-    URL: "http://admin:adminpw@localhost:7006",
+    URL: "http://admin:adminpw@localhost:7010",
     DB_NAME: "wallets"
   }
 });
